@@ -9191,8 +9191,7 @@ return jQuery;
 }));
 (function() {
   $(document).on('click', '[data-click]', function() {
-    $('#container').removeClass().addClass($(this).data('click'));
-    return console.log('click');
+    return $('#container').removeClass().addClass($(this).data('click'));
   });
 
 }).call(this);
