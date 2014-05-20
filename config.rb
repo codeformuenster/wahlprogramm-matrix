@@ -78,3 +78,6 @@ end
 activate :deploy do |deploy|
   deploy.method = :git
 end
+
+activate :relative_assets
+set :relative_links, true
