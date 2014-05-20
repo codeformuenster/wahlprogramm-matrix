@@ -27,13 +27,13 @@ $header-height: 80px
 @include keyframes(hideDown)
   0%
     @include transform(translateY(0))
-  93%
+  95%
     @include transform(translateY(0))
   100%
     @include transform(translateY($header-height*.8))
 
 header
-  +animation(hideDown 6s ease-in)
+  +animation(hideDown 10s ease-in)
   +transform(translateY($header-height*.8))
   +transition(all .2s ease-in)
   &:hover
