@@ -1,3 +1,12 @@
+:sass
+  $numDocs: #{data.agendas.map(&:last).reduce(:+).count}
+  $distLevels: 10
+  @for $doc from 0 to $numDocs
+    .doc-\#{$doc}-selected
+      @for $level from 0 to $distLevels
+        .dist-\#{$doc}-\#{$level}
+          color: rgb(255-$level/$distLevels*255, 0, 0)
+
 %header
   %h1 Wahlprogramm-Matrix
   %p.manual

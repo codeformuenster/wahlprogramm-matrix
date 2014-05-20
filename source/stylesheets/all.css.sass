@@ -3,15 +3,6 @@
 *, *::before, *::after
   +box-sizing(border-box)
 
-// Distance stuff
-$numDocs: 9
-$distLevels: 10
-@for $doc from 0 to $numDocs
-  .doc-#{$doc}-selected
-    @for $level from 0 to $distLevels
-      .dist-#{$doc}-#{$level}
-        color: rgb(255-$level/$distLevels*255, 0, 0)
-
 $body-width: 900px
 $numManifestos: 3
 
