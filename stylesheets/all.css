@@ -118,13 +118,17 @@ header {
   padding-bottom: 80px; }
 
 /* line 60, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+.doc {
+  cursor: pointer; }
+
+/* line 63, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #gruene {
   border-top: 10px solid green; }
 
-/* line 62, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 65, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #cdu {
   border-top: 10px solid black; }
 
-/* line 64, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 67, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #spd {
   border-top: 10px solid red; }
