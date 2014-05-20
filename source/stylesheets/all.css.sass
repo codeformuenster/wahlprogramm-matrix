@@ -12,15 +12,47 @@ $distLevels: 10
       .dist-#{$doc}-#{$level}
         color: rgb(255-$level/$distLevels*255, 0, 0)
 
-$bodyWidth: 900px
+$body-width: 900px
 $numManifestos: 3
 
 html, body
   height: 100%
-  min-width: $bodyWidth
+  min-width: $body-width
   width: 100%
   margin: 0
   padding: 0
+
+$header-height: 80px
+
+@include keyframes(hideDown)
+  0%
+    @include transform(translateY(0))
+  93%
+    @include transform(translateY(0))
+  100%
+    @include transform(translateY($header-height*.8))
+
+header
+  +animation(hideDown 6s ease-in)
+  +transform(translateY($header-height*.8))
+  +transition(all .2s ease-in)
+  &:hover
+    +transform(translateY(0))
+  z-index: 100
+  background: rgba(255,255,255,.9)
+  position: fixed
+  height: $header-height
+  margin: auto
+  bottom: 0
+  border-top: 1px solid black
+  h1, .manual, .description
+    float: left
+    width: 33%
+    text-align: center
+  h1
+    font-size: 1em
+  .manual, .description
+    font-size: .8em
 
 #container
   height: 100%
@@ -32,3 +64,11 @@ html, body
   float: left
   overflow: scroll
   padding: 10px
+  padding-bottom: $header-height
+
+#gruene
+  border-top: 10px solid green
+#cdu
+  border-top: 10px solid black
+#spd
+  border-top: 10px solid red

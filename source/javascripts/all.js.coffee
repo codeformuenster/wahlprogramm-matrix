@@ -4,4 +4,3 @@
 
 $(document).on 'click', '[data-click]', ->
   $('#container').removeClass().addClass($(@).data('click'))
-  console.log 'click'
