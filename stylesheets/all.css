@@ -142,15 +142,18 @@ header {
   /* line 75, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   .minimap a {
     display: block; }
+    /* line 77, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+    .minimap a:hover {
+      background: #ffff66; }
 
-/* line 78, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 80, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #spd-minimap {
   left: 0; }
 
-/* line 80, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 82, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #cdu-minimap {
   left: 33.333%; }
 
-/* line 82, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 84, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #gruene-minimap {
   left: 66.666%; }
