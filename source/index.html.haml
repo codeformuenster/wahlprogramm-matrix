@@ -40,7 +40,7 @@
   #cdu-minimap.minimap
     - data.agendas.CDU.each do |p|
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
+      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
   #cdu.sub-container
     %h2 CDU
     - data.agendas.CDU.each do |p|
@@ -51,7 +51,7 @@
   #gruene-minimap.minimap
     - data.agendas.Gruene.each do |p|
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
+      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
   #gruene.sub-container
     %h2 Grüne
     - data.agendas.Gruene.each do |p|
