@@ -27,9 +27,9 @@
   #spd.sub-container
     %h2 SPD
     - data.agendas.SPD.each do |p|
-      %h3= p.title
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
       .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
+        %h3= p.title
         = GitHub::Markdown.render p.text
   #cdu-minimap.minimap
     - data.agendas.CDU.each do |p|
@@ -38,9 +38,9 @@
   #cdu.sub-container
     %h2 CDU
     - data.agendas.CDU.each do |p|
-      %h3= p.title
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
       .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
+        %h3= p.title
         = GitHub::Markdown.render p.text
   #gruene-minimap.minimap
     - data.agendas.Gruene.each do |p|
@@ -49,7 +49,7 @@
   #gruene.sub-container
     %h2 Grüne
     - data.agendas.Gruene.each do |p|
-      %h3= p.title
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
       .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
+        %h3= p.title
         = GitHub::Markdown.render p.text
