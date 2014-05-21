@@ -2,6 +2,14 @@
 
 *, *::before, *::after
   +box-sizing(border-box)
+  
+a:link
+  text-decoration: none
+  color: #ce5a4e
+a:hover
+  text-decoration: underline
+a:visited
+  color: darken(#ce5a4e, 10%)
 
 $body-width: 900px
 $numManifestos: 3
@@ -12,7 +20,7 @@ html, body
   margin: 0
   padding: 0
 
-$header-height: 80px
+$header-height: 100px
 
 @include keyframes(hideDown)
   0%
@@ -35,15 +43,20 @@ header
   margin: auto
   bottom: 0
   border-top: 1px solid black
-  h1, .manual, .description
-    float: left
-    width: 33%
+  display: table
+  width: 100%
+  .cell
+    display: table-cell
     text-align: center
+    vertical-align: middle
+    padding: 0 5px
   h1
-    font-size: 1em
-  .manual, .description
+    font-size: 1.2em
+    white-space: nowrap
+    padding-left: 15px !important
+  .manual, .description, .tech
     font-size: .8em
-
+  
 #container
   height: 100%
   width: 100%
@@ -75,7 +88,7 @@ header
   a
     display: block
     &:hover
-      background: lighten(yellow, 20%)
+      background: yellow
 
 #spd-minimap
   left: 0
