@@ -12,7 +12,7 @@ html, body
   margin: 0
   padding: 0
 
-$header-height: 80px
+$header-height: 100px
 
 @include keyframes(hideDown)
   0%
@@ -37,7 +37,7 @@ header
   border-top: 1px solid black
   display: table
   width: 100%
-  h1, .manual, .description, #logo
+  .cell
     display: table-cell
     text-align: center
     vertical-align: middle
@@ -45,8 +45,8 @@ header
   h1
     font-size: 1.2em
     white-space: nowrap
-    padding-left: 10px
-  .manual, .description
+    padding-left: 15px !important
+  .manual, .description, .tech
     font-size: .8em
   
 #container
