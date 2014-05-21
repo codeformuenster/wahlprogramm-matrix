@@ -6,7 +6,15 @@ an experiment by Daniel Kirsch, Martin Honermeyer, Tobias Bradtke, Yannic Schenc
 
 You need ruby installed.
 
-   $ bundle install
+    $ bundle install
+   
+## Development
+
+    $ middleman server
+    
+## Deployment (on gh-pages)
+
+    $ middleman build && middleman deploy
 
 ## Data
 
