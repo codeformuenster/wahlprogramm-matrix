@@ -35,15 +35,20 @@ header
   margin: auto
   bottom: 0
   border-top: 1px solid black
-  h1, .manual, .description
-    float: left
-    width: 33%
+  display: table
+  width: 100%
+  h1, .manual, .description, #logo
+    display: table-cell
     text-align: center
+    vertical-align: middle
+    padding: 0 5px
   h1
-    font-size: 1em
+    font-size: 1.2em
+    white-space: nowrap
+    padding-left: 10px
   .manual, .description
     font-size: .8em
-
+  
 #container
   height: 100%
   width: 100%
