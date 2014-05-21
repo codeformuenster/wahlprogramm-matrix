@@ -4,8 +4,10 @@
   @for $doc from 0 to $numDocs
     .doc-\#{$doc}-selected
       @for $level from 0 to $distLevels
-        .dist-\#{$doc}-\#{$level}
+        .doc.dist-\#{$doc}-\#{$level}
           color: rgb(255-$level/$distLevels*255, 0, 0)
+        a.dist-\#{$doc}-\#{$level}
+          background-color: rgb(255-$level/$distLevels*255, 0, 0)
 
 %header
   %h1 Wahlprogramm-Matrix
@@ -18,6 +20,10 @@
 - all_docs = data.agendas.map(&:last).reduce(:+)
 
 #container
+  #spd-minimap.minimap
+    - data.agendas.SPD.each do |p|
+      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
+      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
   #spd.sub-container
     %h2 SPD
     - data.agendas.SPD.each do |p|
@@ -25,6 +31,10 @@
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
       .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
         = GitHub::Markdown.render p.text
+  #cdu-minimap.minimap
+    - data.agendas.CDU.each do |p|
+      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
+      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
   #cdu.sub-container
     %h2 CDU
     - data.agendas.CDU.each do |p|
@@ -32,6 +42,10 @@
       - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
       .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
         = GitHub::Markdown.render p.text
+  #gruene-minimap.minimap
+    - data.agendas.Gruene.each do |p|
+      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
+      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
   #gruene.sub-container
     %h2 Grüne
     - data.agendas.Gruene.each do |p|

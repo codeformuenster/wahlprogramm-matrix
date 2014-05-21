@@ -8,7 +8,6 @@ $numManifestos: 3
 
 html, body
   height: 100%
-  min-width: $body-width
   width: 100%
   margin: 0
   padding: 0
@@ -54,7 +53,7 @@ header
   width: 100%/$numManifestos
   float: left
   overflow: scroll
-  padding: 10px
+  padding: 10px 10px 10px 15px
   padding-bottom: $header-height
 
 .doc
@@ -66,3 +65,19 @@ header
   border-top: 10px solid black
 #spd
   border-top: 10px solid red
+
+.minimap
+  position: fixed
+  height: 100%
+  width: 10px
+  background: lighten(yellow, 40%)
+  margin-top: 10px
+  a
+    display: block
+
+#spd-minimap
+  left: 0
+#cdu-minimap
+  left: 33.333%
+#gruene-minimap
+  left: 66.666%
