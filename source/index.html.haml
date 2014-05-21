@@ -1,13 +1,19 @@
+- dist = data.distances
+- agendas = data.agendas
+- all_docs = agendas.map(&:last).reduce(:+)
+- score_classes_fn = lambda { |p| all_docs.map { |doc| dist[p.id][doc.id].is_a?(Numeric) && "dist-#{doc.id.gsub('.','')}-#{(10 - dist[p.id][doc.id]*10).round}" }.select { |x| x } }
+- sass_doc_list = all_docs.map(&:id).map { |id| id.gsub('.','') }.map(&:inspect).join(', ')
+
 :sass
-  $numDocs: #{data.agendas.map(&:last).reduce(:+).count}
+  $docs: #{sass_doc_list}
   $distLevels: 10
-  @for $doc from 0 to $numDocs
+  @each $doc in $docs
     .doc-\#{$doc}-selected
       @for $level from 0 to $distLevels
         .doc.dist-\#{$doc}-\#{$level}
           color: rgb(255-$level/$distLevels*255, 0, 0)
         a.dist-\#{$doc}-\#{$level}
-          background-color: rgb(255-$level/$distLevels*255, 0, 0)
+          background-color: rgba(255, 0, 0, 1-$level/$distLevels)
 
 %header
   %h1.cell Wahlprogramm-Matrix
@@ -22,40 +28,34 @@
     %a{href:'http://codeformuenster.org'}
       %img{src:'http://codeformuenster.org/img/cfm_logo.png', alt:'Code for Münster'}
 
-- dist = data.distances.inject({}) { |h, (i,j,s)| h.update [i,j] => (s*10).floor, [j,i] => (s*10).floor }
-- all_docs = data.agendas.map(&:last).reduce(:+)
-
 #container
   #spd-minimap.minimap
-    - data.agendas.SPD.each do |p|
-      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
+    - agendas.SPD.each do |p|
+      - score_classes = score_classes_fn[p]
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #spd.sub-container
     %h2 SPD
-    - data.agendas.SPD.each do |p|
-      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
-        %h3= p.title
+    - agendas.SPD.each do |p|
+      - score_classes = score_classes_fn[p]
+      .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
         = GitHub::Markdown.render p.text
   #cdu-minimap.minimap
-    - data.agendas.CDU.each do |p|
-      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
+    - agendas.CDU.each do |p|
+      - score_classes = score_classes_fn[p]
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #cdu.sub-container
     %h2 CDU
-    - data.agendas.CDU.each do |p|
-      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
-        %h3= p.title
+    - agendas.CDU.each do |p|
+      - score_classes = score_classes_fn[p]
+      .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
         = GitHub::Markdown.render p.text
   #gruene-minimap.minimap
-    - data.agendas.Gruene.each do |p|
-      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      %a{href: "#doc-#{p.id}", style: "height: #{100.0*p.text.length/data.agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: ["dist-#{p.id}-0"] + score_classes}
+    - agendas.Gruene.each do |p|
+      - score_classes = score_classes_fn[p]
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #gruene.sub-container
     %h2 Grüne
-    - data.agendas.Gruene.each do |p|
-      - score_classes = all_docs.map { |doc| (d = dist[[p.id.to_i, doc.id.to_i]]) && "dist-#{doc.id}-#{d}" }.compact
-      .doc{id: "doc-#{p.id}", class: ["dist-#{p.id}-0"] + score_classes, data: {click: "doc-#{p.id}-selected"}}
-        %h3= p.title
+    - agendas.Gruene.each do |p|
+      - score_classes = score_classes_fn[p]
+      .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
         = GitHub::Markdown.render p.text
