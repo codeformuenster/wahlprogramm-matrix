@@ -12,7 +12,7 @@ a:visited
   color: darken(#ce5a4e, 10%)
 
 $body-width: 900px
-$numManifestos: 3
+$numManifestos: 4
 
 html, body
   height: 100%
@@ -56,7 +56,7 @@ header
     padding-left: 15px !important
   .manual, .description, .tech
     font-size: .8em
-  
+
 #container
   height: 100%
   width: 100%
@@ -78,6 +78,8 @@ header
   border-top: 10px solid black
 #spd
   border-top: 10px solid red
+#piraten
+  border-top: 10px solid rgb(243,143,49)
 
 .minimap
   position: fixed
@@ -93,6 +95,8 @@ header
 #spd-minimap
   left: 0
 #cdu-minimap
-  left: 33.333%
+  left: 100%/$numManifestos
 #gruene-minimap
-  left: 66.666%
+  left: 100%/$numManifestos*2
+#piraten-minimap
+  left: 100%/$numManifestos*3
