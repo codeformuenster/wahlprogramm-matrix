@@ -128,7 +128,7 @@ header {
 /* line 64, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .sub-container {
   height: 100%;
-  width: 33.33333%;
+  width: 25%;
   float: left;
   overflow: scroll;
   padding: 10px 10px 10px 15px;
@@ -150,28 +150,36 @@ header {
 #spd {
   border-top: 10px solid red; }
 
-/* line 82, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 81, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+#piraten {
+  border-top: 10px solid #f38f31; }
+
+/* line 84, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .minimap {
   position: fixed;
   height: 100%;
   width: 10px;
   background: #ffffcc;
   margin-top: 10px; }
-  /* line 88, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 90, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   .minimap a {
     display: block; }
-    /* line 90, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+    /* line 92, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
     .minimap a:hover {
       background: yellow; }
 
-/* line 93, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 95, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #spd-minimap {
   left: 0; }
 
-/* line 95, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
-#cdu-minimap {
-  left: 33.333%; }
-
 /* line 97, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+#cdu-minimap {
+  left: 25%; }
+
+/* line 99, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #gruene-minimap {
-  left: 66.666%; }
+  left: 50%; }
+
+/* line 101, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+#piraten-minimap {
+  left: 75%; }
