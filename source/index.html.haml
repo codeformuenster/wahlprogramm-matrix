@@ -1,7 +1,8 @@
 - dist = data.distances
 - agendas = data.agendas
 - all_docs = agendas.map(&:last).reduce(:+)
-- score_classes_fn = lambda { |p| all_docs.map { |doc| dist[p.id][doc.id].is_a?(Numeric) && "dist-#{doc.id.gsub('.','')}-#{(10 - dist[p.id][doc.id]*10).round}" }.select { |x| x } }
+- min = 0.1
+- score_classes_fn = lambda { |p| all_docs.map { |doc| [doc, dist[p.id][doc.id]] }.select { |(doc, d)| d.is_a?(Numeric) && d > min }.map { |(doc, d)| [doc, ((1.0-d)/(1.0-min)*10).round] }.map { |(doc, d)| "dist-#{doc.id.gsub('.','')}-#{d}" } }
 - sass_doc_list = all_docs.map(&:id).map { |id| id.gsub('.','') }.map(&:inspect).join(', ')
 
 :sass
