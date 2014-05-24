@@ -9194,4 +9194,19 @@ return jQuery;
     return $('#container').removeClass().addClass($(this).data('click'));
   });
 
+  $(function() {
+    $('.sub-container').on('scroll', function() {
+      var barHeightPercentage, contentHeight, scrollIndicator, scrollPercentage;
+      scrollIndicator = $(this).prev().find('.scroll-indicator');
+      contentHeight = $(this).find('.wrapper').height();
+      scrollPercentage = 1.0 * $(this).scrollTop() / contentHeight * 100;
+      barHeightPercentage = 1.0 * $(this).height() / contentHeight * 100;
+      return scrollIndicator.css({
+        top: "" + scrollPercentage + "%",
+        height: "" + barHeightPercentage + "%"
+      });
+    });
+    return $('.sub-container').trigger('scroll');
+  });
+
 }).call(this);
