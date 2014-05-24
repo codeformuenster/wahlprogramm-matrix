@@ -33,7 +33,7 @@
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #spd.sub-container
-    %h2 SPD
+    %h1.party-name SPD
     - agendas.SPD.each do |p|
       - score_classes = score_classes_fn[p]
       .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
@@ -43,7 +43,7 @@
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #cdu.sub-container
-    %h2 CDU
+    %h1.party-name CDU
     - agendas.CDU.each do |p|
       - score_classes = score_classes_fn[p]
       .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
@@ -53,7 +53,7 @@
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #gruene.sub-container
-    %h2 Grüne
+    %h1.party-name Grüne
     - agendas.Gruene.each do |p|
       - score_classes = score_classes_fn[p]
       .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
@@ -63,7 +63,7 @@
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #piraten.sub-container
-    %h2 Piraten
+    %h1.party-name Piraten
     - agendas.Piraten.each do |p|
       - score_classes = score_classes_fn[p]
       .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}

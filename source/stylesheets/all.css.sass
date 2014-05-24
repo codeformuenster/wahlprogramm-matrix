@@ -2,7 +2,7 @@
 
 *, *::before, *::after
   +box-sizing(border-box)
-  
+
 a:link
   text-decoration: none
   color: #ce5a4e
@@ -11,8 +11,12 @@ a:hover
 a:visited
   color: darken(#ce5a4e, 10%)
 
+::-webkit-scrollbar
+  opacity: 0
+
 $body-width: 900px
-$numManifestos: 4
+$num-manifestos: 4
+$minimap-width: 10px
 
 html, body
   height: 100%
@@ -63,11 +67,17 @@ header
 
 .sub-container
   height: 100%
-  width: 100%/$numManifestos
+  width: 100%/$num-manifestos
   float: left
   overflow: scroll
-  padding: 10px 10px 10px 15px
+  padding: 10px 10px 10px (10px + $minimap-width)
   padding-bottom: $header-height
+  ul
+    padding-left: 1.5em
+  ul, p, h1, h2, h3, h4
+    width: 95%
+    margin-left: auto
+    margin-right: auto
 
 .doc
   cursor: pointer
@@ -84,7 +94,7 @@ header
 .minimap
   position: fixed
   height: 100%
-  width: 10px
+  width: $minimap-width
   background: lighten(yellow, 40%)
   margin-top: 10px
   a
@@ -95,8 +105,34 @@ header
 #spd-minimap
   left: 0
 #cdu-minimap
-  left: 100%/$numManifestos
+  left: 100%/$num-manifestos
 #gruene-minimap
-  left: 100%/$numManifestos*2
+  left: 100%/$num-manifestos*2
 #piraten-minimap
-  left: 100%/$numManifestos*3
+  left: 100%/$num-manifestos*3
+
+// Typography
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700)
+
+body
+  font-family: "Open Sans", sans-serif
+  font-size: 100%
+  @media (max-width: 900px)
+    font-size: 80%
+
+h1
+  font-size: 1.5em
+  &.party-name
+    font-size: 2em
+
+h2
+  font-size: 1.2em
+
+h3, h4
+  font-size: 1em
+
+.sub-container
+  h1, h2, h3, h4
+    text-align: center
+  p
+    text-align: left
