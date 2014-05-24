@@ -28,3 +28,5 @@ task :"distances.json" do
   system 'Rscript distances.R'
   puts 'done.'
 end
+
+task all: [:split, :"agendas.json", :"distances.json"]
