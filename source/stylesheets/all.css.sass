@@ -16,7 +16,8 @@ a:visited
 
 $body-width: 900px
 $num-manifestos: 4
-$minimap-width: 10px
+$minimap-width: 1%
+$top-border: 10px
 
 html, body
   height: 100%
@@ -72,7 +73,6 @@ header
   overflow-y: scroll
   overflow-x: hidden
   padding: 0 0 0 1%
-  margin-bottom: $header-height
   ul
     padding-left: 1.5em
   ul, p, h1, h2, h3, h4
@@ -85,40 +85,48 @@ header
   padding: 1px 0 // prevent white borders between docs
 
 #gruene
-  border-top: 10px solid green
+  border-top: $top-border solid green
 #cdu
-  border-top: 10px solid black
+  border-top: $top-border solid black
 #spd
-  border-top: 10px solid red
+  border-top: $top-border solid red
 #piraten
-  border-top: 10px solid rgb(243,143,49)
+  border-top: $top-border solid rgb(243,143,49)
 
 .minimap
   position: fixed
   height: 100%
   width: 1%
   background: lighten(yellow, 40%)
-  margin-top: 10px
+  margin-top: $top-border
   a
     display: block
     &:hover
       background: yellow
     z-index: 2
   .scroll-indicator
+    width: 1%
+    margin-top: $top-border
     background: rgba(0,0,0,.6)
-    min-height: 15px
-    margin-bottom: -15px
-    position: relative
+    position: fixed
     pointer-events: none
 
 #spd-minimap
   left: 0
+  & .scroll-indicator
+    left: 0
 #cdu-minimap
   left: 100%/$num-manifestos
+  & .scroll-indicator
+    left: 100%/$num-manifestos
 #gruene-minimap
   left: 100%/$num-manifestos*2
+  & .scroll-indicator
+    left: 100%/$num-manifestos*2
 #piraten-minimap
   left: 100%/$num-manifestos*3
+  & .scroll-indicator
+    left: 100%/$num-manifestos*3
 
 // Typography
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700)
