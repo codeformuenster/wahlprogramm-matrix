@@ -9199,14 +9199,21 @@ return jQuery;
       var barHeightPercentage, contentHeight, scrollIndicator, scrollPercentage;
       scrollIndicator = $(this).prev().find('.scroll-indicator');
       contentHeight = $(this).find('.wrapper').height();
-      scrollPercentage = 1.0 * $(this).scrollTop() / contentHeight * 100;
-      barHeightPercentage = 1.0 * $(this).height() / contentHeight * 100;
+      scrollPercentage = $(this).scrollTop() / contentHeight * 100;
+      barHeightPercentage = $(this).height() / contentHeight * 100;
       return scrollIndicator.css({
-        top: "" + scrollPercentage + "%",
+        top: "" + (scrollPercentage - scrollPercentage * barHeightPercentage / 100) + "%",
         height: "" + barHeightPercentage + "%"
       });
     });
-    return $('.sub-container').trigger('scroll');
+    $('.sub-container').trigger('scroll');
+    return $('.doc').each(function() {
+      var contentHeight;
+      contentHeight = $(this).closest('.wrapper').height();
+      return $("[href='#" + ($(this).attr('id')) + "']").css({
+        height: "" + ($(this).height() / contentHeight * 100) + "%"
+      });
+    });
   });
 
 }).call(this);
