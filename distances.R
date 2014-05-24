@@ -11,25 +11,14 @@ c <- tm_map(c, stripWhitespace)
 c <- tm_map(c, stemDocument, 'german')
 
 tfidf <- DocumentTermMatrix(c, control = list(weighting = weightTfIdf))
-distance <- dist(as.matrix(tfidf))
-distance_matrix <- as.matrix(distance)
-distance_matrix_data <- as.data.frame(distance_matrix)
 
-json <- toJSON(
-          lapply(
-            lapply(distance_matrix_data, as.list)
-          , function(x) { names(x) <- colnames(distance_matrix_data); x}))
-
-setwd('~/code/document-matrix/agendas/')
-write(json, 'distances.json')
-
-cdm <- cosine(t(as.matrix(removeSparseTerms(tfidf, 0.95))))
-cdmd <- as.data.frame(cdm)
+cosine_distance_matrix <- cosine(t(as.matrix(removeSparseTerms(tfidf, 0.95))))
+cosine_distance_matrix_data <- as.data.frame(cosine_distance_matrix)
 
 cdmjson <- toJSON(
   lapply(
-    lapply(cdmd, as.list)
-    , function(x) { names(x) <- colnames(cdmd); x}))
+    lapply(cosine_distance_matrix_data, as.list)
+    , function(x) { names(x) <- colnames(cosine_distance_matrix_data); x}))
 
 setwd('~/code/document-matrix/agendas/')
-write(cdmjson, 'cdistances.json')
+write(cdmjson, 'distances.json')
