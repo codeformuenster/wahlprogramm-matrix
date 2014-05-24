@@ -1,7 +1,8 @@
 - dist = data.distances
 - agendas = data.agendas
 - all_docs = agendas.map(&:last).reduce(:+)
-- score_classes_fn = lambda { |p| all_docs.map { |doc| dist[p.id][doc.id].is_a?(Numeric) && "dist-#{doc.id.gsub('.','')}-#{(10 - dist[p.id][doc.id]*10).round}" }.select { |x| x } }
+- min = 0.1
+- score_classes_fn = lambda { |p| all_docs.map { |doc| [doc, dist[p.id][doc.id]] }.select { |(doc, d)| d.is_a?(Numeric) && d > min }.map { |(doc, d)| [doc, ((1.0-d)/(1.0-min)*10).round] }.map { |(doc, d)| "dist-#{doc.id.gsub('.','')}-#{d}" } }
 - sass_doc_list = all_docs.map(&:id).map { |id| id.gsub('.','') }.map(&:inspect).join(', ')
 
 :sass
@@ -29,42 +30,50 @@
 
 #container
   #spd-minimap.minimap
+    .scroll-indicator
     - agendas.SPD.each do |p|
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #spd.sub-container
-    %h1.party-name SPD
-    - agendas.SPD.each do |p|
-      - score_classes = score_classes_fn[p]
-      .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-        = GitHub::Markdown.render p.text
+    .wrapper
+      %h1.party-name SPD
+      - agendas.SPD.each do |p|
+        - score_classes = score_classes_fn[p]
+        .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
+          = GitHub::Markdown.render p.text
   #cdu-minimap.minimap
+    .scroll-indicator
     - agendas.CDU.each do |p|
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #cdu.sub-container
-    %h1.party-name CDU
-    - agendas.CDU.each do |p|
-      - score_classes = score_classes_fn[p]
-      .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-        = GitHub::Markdown.render p.text
+    .wrapper
+      %h1.party-name CDU
+      - agendas.CDU.each do |p|
+        - score_classes = score_classes_fn[p]
+        .doc{id: "doc-#{p.id.gsub('.','')}", class: score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
+          = GitHub::Markdown.render p.text
   #gruene-minimap.minimap
+    .scroll-indicator
     - agendas.Gruene.each do |p|
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #gruene.sub-container
-    %h1.party-name Grüne
-    - agendas.Gruene.each do |p|
-      - score_classes = score_classes_fn[p]
-      .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-        = GitHub::Markdown.render p.text
+    .wrapper
+      %h1.party-name Grüne
+      - agendas.Gruene.each do |p|
+        - score_classes = score_classes_fn[p]
+        .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
+          = GitHub::Markdown.render p.text
   #piraten-minimap.minimap
+    .scroll-indicator
     - agendas.Piraten.each do |p|
       - score_classes = score_classes_fn[p]
       %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
   #piraten.sub-container
-    %h1.party-name Piraten
-    - agendas.Piraten.each do |p|
-      - score_classes = score_classes_fn[p]
-      .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-        = GitHub::Markdown.render p.text
+    .wrapper
+      %h1.party-name Piraten
+      - agendas.Piraten.each do |p|
+        - score_classes = score_classes_fn[p]
+        .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + score_classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
+          = GitHub::Markdown.render p.text
