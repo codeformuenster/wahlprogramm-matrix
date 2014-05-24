@@ -9,7 +9,12 @@ $ ->
   $('.sub-container').on 'scroll', ->
     scrollIndicator = $(@).prev().find('.scroll-indicator')
     contentHeight = $(@).find('.wrapper').height()
-    scrollPercentage = 1.0*$(@).scrollTop()/contentHeight*100
-    barHeightPercentage = 1.0*$(this).height()/contentHeight*100
-    scrollIndicator.css(top: "#{scrollPercentage}%", height: "#{barHeightPercentage}%")
+    scrollPercentage = $(@).scrollTop()/contentHeight*100
+    barHeightPercentage = $(this).height()/contentHeight*100
+    scrollIndicator.css(top: "#{scrollPercentage - scrollPercentage*barHeightPercentage/100}%", height: "#{barHeightPercentage}%")
   $('.sub-container').trigger('scroll')
+
+  # fix minimap heights
+  $('.doc').each ->
+    contentHeight = $(@).closest('.wrapper').height()
+    $("[href='##{$(@).attr('id')}']").css(height: "#{$(@).height()/contentHeight*100}%")
