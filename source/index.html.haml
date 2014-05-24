@@ -11,7 +11,7 @@
     .doc-\#{$doc}-selected
       @for $level from 0 to $distLevels
         .doc.dist-\#{$doc}-\#{$level}
-          color: rgb(255-$level/$distLevels*255, 0, 0)
+          background-color: rgba(255, 0, 0, (1-$level/$distLevels)/2)
         a.dist-\#{$doc}-\#{$level}
           background-color: rgba(255, 0, 0, 1-$level/$distLevels)
 

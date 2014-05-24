@@ -69,18 +69,20 @@ header
   height: 100%
   width: 100%/$num-manifestos
   float: left
-  overflow: scroll
-  padding: 10px 10px 10px (10px + $minimap-width)
-  padding-bottom: $header-height
+  overflow-y: scroll
+  overflow-x: hidden
+  padding: 0 0 0 1%
+  margin-bottom: $header-height
   ul
     padding-left: 1.5em
   ul, p, h1, h2, h3, h4
-    width: 95%
+    width: 90%
     margin-left: auto
     margin-right: auto
 
 .doc
   cursor: pointer
+  padding: 1px 0 // prevent white borders between docs
 
 #gruene
   border-top: 10px solid green
@@ -94,7 +96,7 @@ header
 .minimap
   position: fixed
   height: 100%
-  width: $minimap-width
+  width: 1%
   background: lighten(yellow, 40%)
   margin-top: 10px
   a
