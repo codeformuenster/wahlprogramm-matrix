@@ -4,7 +4,7 @@ an experiment by Daniel Kirsch, Martin Honermeyer, Tobias Bradtke, Yannic Schenc
 
 ## Install
 
-You need ruby installed.
+You need ruby and R installed.
 
     $ bundle install
    
@@ -18,7 +18,14 @@ You need ruby installed.
 
 ## Data
 
-Data is generated via https://github.com/codeformuenster/wahlprogramme2014
+Data is generated from https://github.com/codeformuenster/wahlprogramme2014
+
+See `*.md` in `agendas/`
+
+	$ rake split
+	$ rake agendas.json
+	$ rake distances.json
+	$ cp agendas/*.json data/
 
 ## License
 
