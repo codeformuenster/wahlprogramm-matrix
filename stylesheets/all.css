@@ -1,28 +1,153 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
-/* line 3, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 1, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy {
+  font-size: 12px;
+  position: absolute;
+  padding: 5px;
+  z-index: 100000; }
+
+/* line 2, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-inner {
+  background-color: #000;
+  color: #FFF;
+  max-width: 200px;
+  padding: 5px 8px 4px 8px;
+  text-align: center; }
+
+/* Rounded corners */
+/* line 5, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-inner {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+
+/* Uncomment for shadow */
+/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+/* line 10, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 5px dashed #000; }
+
+/* Rules to colour arrows */
+/* line 13, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-arrow-n {
+  border-bottom-color: #000; }
+
+/* line 14, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-arrow-s {
+  border-top-color: #000; }
+
+/* line 15, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-arrow-e {
+  border-left-color: #000; }
+
+/* line 16, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-arrow-w {
+  border-right-color: #000; }
+
+/* line 18, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-n .tipsy-arrow {
+  top: 0px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+/* line 19, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-nw .tipsy-arrow {
+  top: 0;
+  left: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+/* line 20, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-ne .tipsy-arrow {
+  top: 0;
+  right: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+/* line 21, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-s .tipsy-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+/* line 22, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-sw .tipsy-arrow {
+  bottom: 0;
+  left: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+/* line 23, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-se .tipsy-arrow {
+  bottom: 0;
+  right: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent; }
+
+/* line 24, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-e .tipsy-arrow {
+  right: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-left-style: solid;
+  border-right: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent; }
+
+/* line 25, /Users/danielkirsch/code/document-matrix/source/stylesheets/tipsy.css */
+.tipsy-w .tipsy-arrow {
+  left: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-right-style: solid;
+  border-left: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent; }
+
+/* line 4, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 6, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 7, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 a:link {
   text-decoration: none;
   color: #ce5a4e; }
 
-/* line 9, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 10, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 a:hover {
   text-decoration: underline; }
 
-/* line 11, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 12, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 a:visited {
   color: #b63f33; }
 
-/* line 14, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 15, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 ::-webkit-scrollbar {
   width: 0px; }
 
-/* line 22, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 23, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 html, body {
   height: 100%;
   width: 100%;
@@ -30,58 +155,58 @@ html, body {
   padding: 0; }
 
 @-webkit-keyframes hideDown {
-  /* line 31, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 32, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   0% {
     -webkit-transform: translateY(0); }
 
-  /* line 33, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 34, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   95% {
     -webkit-transform: translateY(0); }
 
-  /* line 35, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 36, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   100% {
     -webkit-transform: translateY(80px); } }
 
 @-moz-keyframes hideDown {
-  /* line 31, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 32, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   0% {
     -moz-transform: translateY(0); }
 
-  /* line 33, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 34, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   95% {
     -moz-transform: translateY(0); }
 
-  /* line 35, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 36, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   100% {
     -moz-transform: translateY(80px); } }
 
 @-o-keyframes hideDown {
-  /* line 31, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 32, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   0% {
     -o-transform: translateY(0); }
 
-  /* line 33, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 34, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   95% {
     -o-transform: translateY(0); }
 
-  /* line 35, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 36, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   100% {
     -o-transform: translateY(80px); } }
 
 @keyframes hideDown {
-  /* line 31, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 32, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   0% {
     transform: translateY(0); }
 
-  /* line 33, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 34, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   95% {
     transform: translateY(0); }
 
-  /* line 35, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 36, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   100% {
     transform: translateY(80px); } }
 
-/* line 38, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 39, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 header {
   -webkit-animation: hideDown 10s ease-in;
   -moz-animation: hideDown 10s ease-in;
@@ -103,34 +228,34 @@ header {
   border-top: 1px solid black;
   display: table;
   width: 100%; }
-  /* line 42, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 43, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   header:hover {
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
     transform: translateY(0); }
-  /* line 53, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 54, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   header .cell {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
     padding: 0 5px; }
-  /* line 58, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 59, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   header h1 {
     font-size: 1.2em;
     white-space: nowrap;
     padding-left: 15px !important; }
-  /* line 62, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 63, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   header .manual, header .description, header .tech {
     font-size: 0.8em; }
 
-/* line 65, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 66, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #container {
   height: 100%;
   width: 100%; }
 
-/* line 69, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 70, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .sub-container {
   height: 100%;
   width: 25%;
@@ -138,51 +263,51 @@ header {
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0 0 0 1%; }
-  /* line 76, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 77, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   .sub-container ul {
     padding-left: 1.5em; }
-  /* line 78, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 79, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   .sub-container ul, .sub-container p, .sub-container h1, .sub-container h2, .sub-container h3, .sub-container h4 {
     width: 90%;
     margin-left: auto;
     margin-right: auto; }
 
-/* line 83, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 84, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .doc {
   cursor: pointer;
   padding: 1px 0; }
 
-/* line 87, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 88, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #gruene {
   border-top: 10px solid green; }
 
-/* line 89, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 90, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #cdu {
   border-top: 10px solid black; }
 
-/* line 91, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 92, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #spd {
   border-top: 10px solid red; }
 
-/* line 93, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 94, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #piraten {
   border-top: 10px solid #f38f31; }
 
-/* line 96, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 97, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .minimap {
   position: fixed;
   height: 100%;
   width: 1%;
   background: #ffffcc;
   margin-top: 10px; }
-  /* line 102, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 103, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   .minimap a {
     display: block;
     z-index: 2; }
-    /* line 104, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+    /* line 105, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
     .minimap a:hover {
       background: yellow; }
-  /* line 107, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 108, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   .minimap .scroll-indicator {
     width: 1%;
     margin-top: 10px;
@@ -190,61 +315,61 @@ header {
     position: fixed;
     pointer-events: none; }
 
-/* line 114, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 115, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #spd-minimap {
   left: 0; }
-  /* line 116, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 117, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #spd-minimap .scroll-indicator {
     left: 0; }
 
-/* line 118, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 119, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #cdu-minimap {
   left: 25%; }
-  /* line 120, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 121, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #cdu-minimap .scroll-indicator {
     left: 25%; }
 
-/* line 122, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 123, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #gruene-minimap {
   left: 50%; }
-  /* line 124, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 125, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #gruene-minimap .scroll-indicator {
     left: 50%; }
 
-/* line 126, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 127, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 #piraten-minimap {
   left: 75%; }
-  /* line 128, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 129, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #piraten-minimap .scroll-indicator {
     left: 75%; }
 
-/* line 134, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 135, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 100%; }
   @media (max-width: 900px) {
-    /* line 134, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+    /* line 135, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
     body {
       font-size: 80%; } }
 
-/* line 140, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 141, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 h1 {
   font-size: 1.5em; }
-  /* line 142, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+  /* line 143, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   h1.party-name {
     font-size: 2em; }
 
-/* line 145, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 146, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 h2 {
   font-size: 1.2em; }
 
-/* line 148, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 149, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 h3, h4 {
   font-size: 1em; }
 
-/* line 152, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 153, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .sub-container h1, .sub-container h2, .sub-container h3, .sub-container h4 {
   text-align: center; }
-/* line 154, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 155, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 .sub-container p {
   text-align: left; }
