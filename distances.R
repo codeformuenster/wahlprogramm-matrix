@@ -1,13 +1,22 @@
 library('tm')
 library('rjson')
 library('lsa')
-setwd('~/code/document-matrix/agendas/split/')
+setwd(paste(getwd(), 'agendas/split/', sep='/'))
 c <- Corpus(DirSource('.'))
-c <- tm_map(c, tolower)
 c <- tm_map(c, removeNumbers)
 c <- tm_map(c, removePunctuation)
 c <- tm_map(c, removeWords, stopwords('de'))
 c <- tm_map(c, stripWhitespace)
+
+m = as.matrix(DocumentTermMatrix(c, control = list(weighting = weightTfIdf)))
+mostImportantTerms = apply(m, 1, function(row) {
+  order = order(row, decreasing = TRUE)
+  colnames(m)[order[0:3]]
+})
+mostImportantTermsFrame = as.data.frame(mostImportantTerms, stringAsFactors=FALSE)
+mostImportantTermsJSON = toJSON(mostImportantTermsFrame)
+
+c <- tm_map(c, content_transformer(tolower))
 c <- tm_map(c, stemDocument, 'german')
 
 tfidf <- DocumentTermMatrix(c, control = list(weighting = weightTfIdf))
@@ -20,5 +29,6 @@ cdmjson <- toJSON(
     lapply(cosine_distance_matrix_data, as.list)
     , function(x) { names(x) <- colnames(cosine_distance_matrix_data); x}))
 
-setwd('~/code/document-matrix/agendas/')
+setwd(paste(getwd(), '..', sep='/'))
+write(mostImportantTermsJSON, 'important.json')
 write(cdmjson, 'distances.json')
