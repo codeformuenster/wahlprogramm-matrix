@@ -33,7 +33,7 @@
     .scroll-indicator
     - agendas.SPD.each do |p|
       - score_classes = score_classes_fn[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: score_classes, :"data-important" => data.important[p.id].join(', ')}
   #spd.sub-container
     .wrapper
       %h1.party-name SPD
@@ -45,7 +45,7 @@
     .scroll-indicator
     - agendas.CDU.each do |p|
       - score_classes = score_classes_fn[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: score_classes, :"data-important" => data.important[p.id].join(', ')}
   #cdu.sub-container
     .wrapper
       %h1.party-name CDU
@@ -57,7 +57,7 @@
     .scroll-indicator
     - agendas.Gruene.each do |p|
       - score_classes = score_classes_fn[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: score_classes, :"data-important" => data.important[p.id].join(', ')}
   #gruene.sub-container
     .wrapper
       %h1.party-name Grüne
@@ -69,7 +69,7 @@
     .scroll-indicator
     - agendas.Piraten.each do |p|
       - score_classes = score_classes_fn[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: score_classes}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: score_classes, :"data-important" => data.important[p.id].join(', ')}
   #piraten.sub-container
     .wrapper
       %h1.party-name Piraten

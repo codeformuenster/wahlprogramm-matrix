@@ -18,3 +18,5 @@ $ ->
   $('.doc').each ->
     contentHeight = $(@).closest('.wrapper').height()
     $("[href='##{$(@).attr('id')}']").css(height: "#{$(@).height()/contentHeight*100}%")
+
+  $('.minimap a').tipsy(title: 'data-important', gravity: 'w')
