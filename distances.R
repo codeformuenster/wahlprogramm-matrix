@@ -24,6 +24,11 @@ tfidf <- DocumentTermMatrix(c, control = list(weighting = weightTfIdf))
 cosine_distance_matrix <- cosine(t(as.matrix(removeSparseTerms(tfidf, 0.95))))
 cosine_distance_matrix_data <- as.data.frame(cosine_distance_matrix)
 
+d = cosine_distance_matrix_data
+d = d[d$CDU.mdaa > 0,] # make NaN row a NA row
+meandist = apply(d,2,mean, na.rm=TRUE)
+outlier = sort(meandist, decreasing=TRUE)[0:15]
+
 cdmjson <- toJSON(
   lapply(
     lapply(cosine_distance_matrix_data, as.list)
@@ -32,3 +37,4 @@ cdmjson <- toJSON(
 setwd(paste(getwd(), '..', sep='/'))
 write(mostImportantTermsJSON, 'important.json')
 write(cdmjson, 'distances.json')
+write(outlier, 'outlier.json')
