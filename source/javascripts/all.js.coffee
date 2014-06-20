@@ -3,7 +3,11 @@
 #= require_self
 
 $(document).on 'click', '[data-click]', ->
-  $('#container').removeClass().addClass($(@).data('click'))
+  $container = $('#container')
+  if $container.hasClass($(@).data('click'))
+    $container.removeClass()
+  else
+    $container.removeClass().addClass($(@).data('click')).addClass('selected')
 
 $ ->
   $('.sub-container').on 'scroll', ->
