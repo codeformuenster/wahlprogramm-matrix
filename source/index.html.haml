@@ -19,16 +19,17 @@
           background-color: rgba(255, 0, 0, 1-$level/$distLevels)
 
 %header
-  %h1.cell Wahlprogramm-Matrix
-  %p.manual.cell
-    Wähle Paragraphen per Mausklick aus und andere thematisch ähnliche Paragraphen werden farblich hervorgehoben.
-  %p.tech.cell
-    Die Ähnlichkeit wurde rein maschinell ermittelt (mit <a href='http://en.wikipedia.org/wiki/Tf%E2%80%93idf'>tf-idf</a>).
-  %p.description.cell
-    Dies ist ein Experiment von <a href="http://kirelabs.org">Daniel Kirsch</a>, <a href="https://github.com/djmaze">Martin Honermeyer</a>, <a href="https://github.com/webwurst">Tobias Bradtke</a> und <a href="https://github.com/jahnique">Yannic Schencking</a> für
-  #logo.cell
-    %a{href:'http://codeformuenster.org'}
-      %img{src:'http://codeformuenster.org/img/cfm_logo.png', alt:'Code for Münster'}
+  .inner-header
+    %h1.cell Wahlprogramm-Matrix
+    %p.manual.cell
+      Wähle Paragraphen per Mausklick aus und andere thematisch ähnliche Paragraphen werden farblich hervorgehoben.
+    %p.tech.cell
+      Die Ähnlichkeit wurde rein maschinell ermittelt (mit <a href='http://en.wikipedia.org/wiki/Tf%E2%80%93idf'>tf-idf</a>).
+    %p.description.cell
+      Dies ist ein Experiment von <a href="http://kirelabs.org">Daniel Kirsch</a>, <a href="https://github.com/djmaze">Martin Honermeyer</a>, <a href="https://github.com/webwurst">Tobias Bradtke</a> und <a href="https://github.com/jahnique">Yannic Schencking</a> für
+    #logo.cell
+      %a{href:'http://codeformuenster.org'}
+        %img{src:'http://codeformuenster.org/img/cfm_logo.png', alt:'Code for Münster'}
 
 #container
   #spd-minimap.minimap

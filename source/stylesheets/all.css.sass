@@ -26,33 +26,78 @@ html, body
   margin: 0
   padding: 0
 
-$header-height: 100px
+$ball-size: 40px
 
-@include keyframes(hideDown)
+=helpBall
+  width: $ball-size
+  height: $ball-size
+  top: 5%
+  right: 5%
+  overflow: hidden
+  border-radius: $ball-size/2
+  border: 1px solid black
+
+=helpPane
+  width: 90%
+  height: 90%
+  top: 5%
+  right: 5%
+  overflow: scroll
+  border-radius: $ball-size/2
+  border: 1px solid black
+
++keyframes(helpPaneToBall)
   0%
-    @include transform(translateY(0))
+    +helpPane
   95%
-    @include transform(translateY(0))
+    +helpPane
   100%
-    @include transform(translateY($header-height*.8))
+    +helpBall
+
++keyframes(disappear)
+  0%
+    opacity: 1
+  95%
+    opacity: 1
+  100%
+    opacity: 0
+
++keyframes(appear)
+  0%
+    opacity: 0
+  98%
+    opacity: 0
+  100%
+    opacity: 1
 
 header
-  +animation(hideDown 10s ease-in)
-  +transform(translateY($header-height*.8))
-  +transition(all .2s ease-in)
-  &:hover
-    +transform(translateY(0))
+  +animation(helpPaneToBall 10s ease-in-out)
+  +transition(all .2s ease-in-out)
   z-index: 100
   background: rgba(255,255,255,.9)
   position: fixed
-  height: $header-height
-  margin: auto
-  bottom: 0
-  border-top: 1px solid black
-  display: table
-  width: 100%
+  +helpBall
+  .inner-header
+    +animation(disappear 10s ease-in-out)
+    +transition(all .2s ease-in-out)
+    opacity: 0
+  &::before
+    +transition(all .2s ease-in-out)
+    +animation(appear 10s ease-in-out)
+    content: '?'
+    position: absolute
+    right: 0
+    width: $ball-size
+    font-size: $ball-size - 10px
+    text-align: center
+    opacity: 1
+  &:hover
+    +helpPane
+    .inner-header
+      opacity: 1
+    &::before
+      opacity: 0
   .cell
-    display: table-cell
     text-align: center
     vertical-align: middle
     padding: 0 5px
