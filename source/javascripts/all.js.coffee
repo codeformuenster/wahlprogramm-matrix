@@ -29,7 +29,7 @@ $ ->
 $ ->
   # help
   help = $('#help')
-  close = $('#help')
+  close = $('#close')
   retract = -> help.removeClass('expanded')
   expand = -> help.addClass('expanded')
   toggle = -> help.toggleClass('expanded')

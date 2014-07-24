@@ -19,17 +19,37 @@
           background-color: rgba(255, 0, 0, 1-$level/$distLevels)
 
 %header#help
+  #close ✗
+  #questionmark ?
   #help-content
-    %h1.cell Wahlprogramm-Matrix
-    %p.manual.cell
-      Wähle Paragraphen per Mausklick aus und andere thematisch ähnliche Paragraphen werden farblich hervorgehoben.
-    %p.tech.cell
-      Die Ähnlichkeit wurde rein maschinell ermittelt (mit <a href='http://en.wikipedia.org/wiki/Tf%E2%80%93idf'>tf-idf</a>).
-    %p.description.cell
-      Dies ist ein Experiment von <a href="http://kirelabs.org">Daniel Kirsch</a>, <a href="https://github.com/djmaze">Martin Honermeyer</a>, <a href="https://github.com/webwurst">Tobias Bradtke</a> und <a href="https://github.com/jahnique">Yannic Schencking</a> für
-    #logo.cell
+    %h1
       %a{href:'http://codeformuenster.org'}
         %img{src:'http://codeformuenster.org/img/cfm_logo.png', alt:'Code for Münster'}
+      Wahlprogramm-Matrix
+    %p#description
+      Mit dieser App können Sie die
+      %em Wahlprogramme der Kommunalwahl 2014 in Münster
+      mit etwas technischer Unterstützung lesen.
+    %h2 Wie benutze ich die App?
+    %ul#manual-text
+      %li
+        Klicke auf einen Paragraphen um ihn auszuwählen. Der ausgewuahlte Paragraph und weitere thematisch ähnliche werden
+        %span.highlight-similar farblich
+        hervorgehoben.
+      %li Die Scroll-Leisten zeigen durch farbliche Hinterlegung an, wo im zugehörigen Wahlprogramm die thematisch ähnlichen Paragraphen zu finden sind. Klicke auf die Leiste um zum Paragraphen zu springen.
+      %li Führe die Maus über die Scroll-Leiste um für die Paragraphen relevante Begriffe zu sehen.
+      %li
+        Außenseiter sind
+        %span.highlight-outlier blau
+        hervorhehoben. Diese Paragraphen haben zu allen anderen Paragraphen einen hohen semantischen Abstand.
+
+    %p#manual-movie
+      = image_tag 'manual.gif'
+    %h2 Wie funktioniert das?
+    %p#tech
+      Die Ähnlichkeit wird rein maschinell ermittelt. Dazu werden die Wörter in den einzelnen Paragraphen miteinander verglichen und so ein semantischer Abstand errechnet. Welche Wörter der Algorithmus dabei als besonders relevant empfindet, kann man sehen, wenn man mit dem Mauszeiger über die Scroll-Leisten schwebt. Dabei kommen oft sinnvolle aber manchmal auch nicht so sinnvolle Ergebnisse heraus.
+    #attribution
+      %p Dies ist ein Experiment von <a href="http://kirelabs.org">Daniel Kirsch</a>, <a href="https://github.com/djmaze">Martin Honermeyer</a>, <a href="https://github.com/webwurst">Tobias Bradtke</a> und <a href="https://github.com/jahnique">Yannic Schencking</a>
 
 #container
   #spd-minimap.minimap
