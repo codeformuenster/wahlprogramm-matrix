@@ -27,73 +27,122 @@ html, body
   padding: 0
 
 $ball-size: 40px
+$help-pane-margin: 3%
 
 =helpBall
   width: $ball-size
   height: $ball-size
-  top: 5%
-  right: 5%
+  top: $help-pane-margin
+  right: $help-pane-margin
   overflow: hidden
   border-radius: $ball-size/2
   border: 1px solid black
 
 =helpPane
-  width: 90%
-  height: 90%
-  top: 5%
-  right: 5%
+  width: 94%
+  height: 94%
+  top: $help-pane-margin
+  right: $help-pane-margin
   overflow: scroll
   border-radius: $ball-size/2
   border: 1px solid black
 
-+keyframes(helpPaneToBall)
-  0%
-    +helpPane
-  95%
-    +helpPane
-  100%
-    +helpBall
+$transition-time: .2s
 
-+keyframes(disappear)
-  0%
-    opacity: 1
-  95%
-    opacity: 1
-  100%
-    opacity: 0
-
-+keyframes(appear)
-  0%
-    opacity: 0
-  98%
-    opacity: 0
-  100%
-    opacity: 1
-
-header
-  +animation(helpPaneToBall 10s ease-in-out)
-  +transition(all .2s ease-in-out)
+#help
+  +transition(all $transition-time ease-in-out)
   z-index: 100
   background: rgba(255,255,255,.9)
   position: fixed
   +helpBall
-  .inner-header
-    +animation(disappear 10s ease-in-out)
-    +transition(all .2s ease-in-out)
-    opacity: 0
   &::before
-    +transition(all .2s ease-in-out)
-    +animation(appear 10s ease-in-out)
+    +transition(all $transition-time ease-in-out)
+    +transform(scale(1))
     content: '?'
     position: absolute
+    display: block
+    top: 0
     right: 0
     width: $ball-size
     font-size: $ball-size - 10px
     text-align: center
-    opacity: 1
-  &:hover
+  &::after
+    +transition(all $transition-time ease-in-out)
+    +transform(scale(0) rotate(180deg))
+    content: '✗'
+    position: absolute
+    display: block
+    top: 0
+    right: 0
+    width: $ball-size
+    font-size: $ball-size - 10px
+    text-align: center
+  #help-content
+    +transition(all $transition-time ease-in-out)
+    opacity: 0
+  &.expanded
     +helpPane
-    .inner-header
+    #help-content
+      opacity: 1
+    &::before
+      +transform(scale(0) rotate(180deg))
+    &::after
+      +transform(scale(1) rotate(360deg))
+      cursor: pointer
+      &:hover
+        opacity: .5
+  .cell
+    text-align: center
+    vertical-align: middle
+    padding: 0 5px
+  h1
+    font-size: 1.2em
+    white-space: nowrap
+    padding-left: 15px !important
+  .manual, .description, .tech
+    font-size: .8em
+
+#container
+  height: 100%
+  width: 100%
+
+.sub-container
+  height: 100%
+  width: 100%/$num-manifestos
+  float: left
+  overflow-y: scroll
+  overflow-x: hidden
+  padding: 0 0 0 1%
+  ul
+    padding-left: 1.5em
+  ul, p, h1, h2, h3, h4
+    width: 90%
+    margin-left: auto
+    margin-right: auto
+
+.doc
+  cursor: pointer
+  padding: 1px 0 // prevent white borders between docs
+
+#gruene
+  border-top: $top-border solid green
+#cdu
+  border-top: $top-border solid black
+#spd
+  border-top: $top-border solid red
+#piraten
+  border-top: $top-border solid rgb(243,143,49)
+
+.minimap
+  position: fixed
+  height: 100%
+  width: $minimap-width
+  #help-content
+    +transition(all .2s ease-in-out)
+    opacity: 0
+  &.expanded
+    +helpPane
+    #help-content
       opacity: 1
     &::before
       opacity: 0

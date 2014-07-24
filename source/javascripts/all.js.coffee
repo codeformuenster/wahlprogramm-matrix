@@ -10,6 +10,7 @@ $(document).on 'click', '[data-click]', ->
     $container.removeClass().addClass($(@).data('click')).addClass('selected')
 
 $ ->
+  # scrolling indicators
   $('.sub-container').on 'scroll', ->
     scrollIndicator = $(@).prev().find('.scroll-indicator')
     contentHeight = $(@).find('.wrapper').height()
@@ -24,3 +25,18 @@ $ ->
     $("[href='##{$(@).attr('id')}']").css(height: "#{$(@).height()/contentHeight*100}%")
 
   $('.minimap a').tipsy(title: 'data-important', gravity: 'w')
+
+$ ->
+  # help
+  help = $('#help')
+  close = $('#help')
+  retract = -> help.removeClass('expanded')
+  expand = -> help.addClass('expanded')
+  toggle = -> help.toggleClass('expanded')
+  firstRetraction = 10*1000
+  timer = setTimeout(retract, firstRetraction)
+  cancelFirstRetraction = -> clearTimeout(timer)
+  expand()
+  help.on 'mouseenter', -> expand(); cancelFirstRetraction()
+  help.on 'mouseleave', retract
+  close.on 'click', toggle
