@@ -9449,7 +9449,13 @@ return jQuery;
 })(jQuery);
 (function() {
   $(document).on('click', '[data-click]', function() {
-    return $('#container').removeClass().addClass($(this).data('click'));
+    var $container;
+    $container = $('#container');
+    if ($container.hasClass($(this).data('click'))) {
+      return $container.removeClass();
+    } else {
+      return $container.removeClass().addClass($(this).data('click')).addClass('selected');
+    }
   });
 
   $(function() {
@@ -9476,6 +9482,33 @@ return jQuery;
       title: 'data-important',
       gravity: 'w'
     });
+  });
+
+  $(function() {
+    var cancelFirstRetraction, close, expand, firstRetraction, help, retract, timer, toggle;
+    help = $('#help');
+    close = $('#close');
+    retract = function() {
+      return help.removeClass('expanded');
+    };
+    expand = function() {
+      return help.addClass('expanded');
+    };
+    toggle = function() {
+      return help.toggleClass('expanded');
+    };
+    firstRetraction = 10 * 1000;
+    timer = setTimeout(retract, firstRetraction);
+    cancelFirstRetraction = function() {
+      return clearTimeout(timer);
+    };
+    expand();
+    help.on('mouseenter', function() {
+      expand();
+      return cancelFirstRetraction();
+    });
+    help.on('mouseleave', retract);
+    return close.on('click', toggle);
   });
 
 }).call(this);
