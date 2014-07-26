@@ -5,7 +5,7 @@ setwd(paste(getwd(), 'agendas/split/', sep='/'))
 c <- Corpus(DirSource('.'))
 c <- tm_map(c, removeNumbers)
 c <- tm_map(c, removePunctuation)
-c <- tm_map(c, removeWords, stopwords('de'))
+c <- tm_map(c, removeWords, c(stopwords('de'), c('sie', 'gut', 'statt')))
 c <- tm_map(c, stripWhitespace)
 
 m = as.matrix(DocumentTermMatrix(c, control = list(weighting = weightTfIdf)))
@@ -38,3 +38,4 @@ setwd(paste(getwd(), '..', sep='/'))
 write(mostImportantTermsJSON, 'important.json')
 write(cdmjson, 'distances.json')
 write(toJSON(outlier), 'outlier.json')
+
