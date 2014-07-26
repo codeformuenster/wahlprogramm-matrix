@@ -143,11 +143,7 @@ a:hover {
 a:visited {
   color: #b83f33; }
 
-/* line 27, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
-::-webkit-scrollbar #container {
-  width: 0px; }
-
-/* line 35, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
+/* line 34, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
 html, body {
   height: 100%;
   width: 100%;
@@ -192,7 +188,8 @@ html, body {
     font-size: 30px;
     text-align: center;
     font-weight: bold;
-    color: #ce5b50; }
+    color: #903128;
+    z-index: 101; }
   /* line 88, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #help #close {
     -webkit-transition: all 0.2s ease-in-out;
@@ -214,7 +211,8 @@ html, body {
     font-size: 30px;
     text-align: center;
     font-weight: bold;
-    color: #ce5b50; }
+    color: #903128;
+    z-index: 101; }
   /* line 92, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #help #help-content {
     -webkit-transition: all 0.2s ease-in-out;
@@ -266,7 +264,7 @@ html, body {
   /* line 115, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
   #help-content ul {
     text-align: left;
-    padding: 10px;
+    padding: 10px 20px;
     background: #ffffd6; }
     /* line 119, /Users/danielkirsch/code/document-matrix/source/stylesheets/all.css.sass */
     #help-content ul li {
