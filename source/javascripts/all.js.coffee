@@ -36,7 +36,6 @@ $ ->
   firstRetraction = 10*1000
   timer = setTimeout(retract, firstRetraction)
   cancelFirstRetraction = -> clearTimeout(timer)
-  expand()
   help.on 'mouseenter', -> expand(); cancelFirstRetraction()
   help.on 'mouseleave', retract
   close.on 'click', toggle
