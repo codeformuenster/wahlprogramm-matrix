@@ -92,6 +92,18 @@ $transition-time: .2s
   #help-content
     +transition(all $transition-time ease-in-out)
     opacity: 0
+  & ~ #shade
+    z-index: 3
+    content: ' '
+    position: fixed
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    background: black
+    opacity: 0
+    pointer-events: none
+    +transition(all $transition-time ease-in-out)
   &.expanded
     +helpPane
     #help-content
@@ -101,6 +113,8 @@ $transition-time: .2s
     #close
       +transform(scale(1) rotate(360deg))
       cursor: pointer
+    & ~ #shade
+      opacity: .6
 
 #help-content
   text-align: center
