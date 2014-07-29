@@ -9502,7 +9502,6 @@ return jQuery;
     cancelFirstRetraction = function() {
       return clearTimeout(timer);
     };
-    expand();
     help.on('mouseenter', function() {
       expand();
       return cancelFirstRetraction();
