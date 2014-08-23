@@ -1,10 +1,15 @@
 - dist = data.distances
-- agendas = data.agendas
+- estimator = Quantile::Estimator.new
+- dist.each { |_,v| v.each { |_,v| estimator.observe(v) } }
+- agendas = data.documents
 - all_docs = agendas.map(&:last).reduce(:+)
-- min = 0.1
-- OUTLIER = 0.05
-- is_outlier = lambda { |doc| (data.outlier[doc.id] || 1) < OUTLIER }
-- score_classes_fn = lambda { |p| all_docs.map { |doc| [doc, dist[p.id][doc.id]] }.select { |(doc, d)| d.is_a?(Numeric) && d > min }.map { |(doc, d)| [doc, ((1.0-d)/(1.0-min)*10).round] }.map { |(doc, d)| "dist-#{doc.id.gsub('.','')}-#{d}" } }
+- min = estimator.query(0.8)
+- max = estimator.query(1)
+- outlier = estimator.query(0.4)
+- # map the interval [min, max] to clamped [1, 0] interval and then quantize to ten distance levels
+- quantize = lambda { |d| ([[(max-d)/(max-min), 0].max, 1].min*10).round }
+- is_outlier = lambda { |doc| (data.distances[doc.id][:avg] || 1) < outlier }
+- score_classes_fn = lambda { |p| all_docs.map { |doc| [doc, dist[p.id][doc.id]] }.select { |(doc, d)| d.is_a?(Numeric) && d > min }.map { |(doc, d)| [doc, quantize[d]] }.map { |(doc, d)| "dist-#{doc.id.gsub('.','')}-#{d}" } }
 - sass_doc_list = all_docs.map(&:id).map { |id| id.gsub('.','') }.map(&:inspect).join(', ')
 
 :sass
@@ -67,7 +72,7 @@
     - agendas.SPD.each do |p|
       - classes = score_classes_fn[p]
       - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].join(', ')}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
   #spd.sub-container
     .wrapper
       %h1.party-name SPD
@@ -81,7 +86,7 @@
     - agendas.CDU.each do |p|
       - classes = score_classes_fn[p]
       - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].join(', ')}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
   #cdu.sub-container
     .wrapper
       %h1.party-name CDU
@@ -92,14 +97,14 @@
           = GitHub::Markdown.render p.text
   #gruene-minimap.minimap
     .scroll-indicator
-    - agendas.Gruene.each do |p|
+    - agendas["Grüne"].each do |p|
       - classes = score_classes_fn[p]
       - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Gruene.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].join(', ')}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas["Grüne"].map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
   #gruene.sub-container
     .wrapper
       %h1.party-name Grüne
-      - agendas.Gruene.each do |p|
+      - agendas["Grüne"].each do |p|
         - classes = score_classes_fn[p]
         - classes << 'outlier' if is_outlier[p]
         .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
@@ -109,7 +114,7 @@
     - agendas.Piraten.each do |p|
       - classes = score_classes_fn[p]
       - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].join(', ')}
+      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
   #piraten.sub-container
     .wrapper
       %h1.party-name Piraten
