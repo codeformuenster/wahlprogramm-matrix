@@ -37,7 +37,7 @@ to generate `data/documents.json` (all the paragraph data), `data/important.json
 
     Text
 
-An jeder ## Überschrift und ### Zwischenüberschrift wird in Paragraphen unterteilt.
+The documents will be split at every ## Überschrift and ### Zwischenüberschrift
 
 ## Tweaking
 
