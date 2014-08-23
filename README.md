@@ -25,6 +25,10 @@ Put markdown files into the `documents` folder and run
 
 to generate `data/documents.json` (all the paragraph data), `data/important.json` (significant words per paragraph), and `data/distances.json` (the paragraph distances).
 
+## Tweaking
+
+See the top of `index.html.haml`
+
 ## License
 
 The MIT License (MIT)
