@@ -62,8 +62,8 @@ task :default do
     end
   end
   puts 'Computing tf/idf model...'
-  model = TfIdfSimilarity::TfIdfModel.new(corpus, library: :narray)
-  unstemmed_model = TfIdfSimilarity::TfIdfModel.new(unstemmed_corpus, library: :narray)
+  model = TfIdfSimilarity::BM25Model.new(corpus, library: :narray)
+  unstemmed_model = TfIdfSimilarity::BM25Model.new(unstemmed_corpus, library: :narray)
   puts 'done.'
 
   # calculate important terms from unstemmed corpus
