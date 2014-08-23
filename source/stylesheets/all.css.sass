@@ -27,7 +27,6 @@ a:visited
   // width: 0px
 
 $body-width: 900px
-$num-manifestos: 4
 $minimap-width: 1%
 $top-border: 10px
 
@@ -139,72 +138,34 @@ $transition-time: .2s
       @media (max-width: 600px)
         width: 100%
 
-#container
-  height: 100%
-  width: 100%
-
-.sub-container
-  height: 100%
-  width: 100%/$num-manifestos
-  float: left
-  overflow-y: scroll
-  overflow-x: hidden
-  padding: 0 0 0 1%
-  ul
-    padding-left: 1.5em
-  ul, p, h1, h2, h3, h4
-    width: 90%
-    margin-left: auto
-    margin-right: auto
-
 .doc
   cursor: pointer
   padding: 1px 0 // prevent white borders between docs
 
-#gruene
-  border-top: $top-border solid green
-#cdu
-  border-top: $top-border solid black
-#spd
-  border-top: $top-border solid red
-#piraten
-  border-top: $top-border solid rgb(243,143,49)
+.sub-container
+  &.grüne
+    border-top: $top-border solid green
+  &.cdu
+    border-top: $top-border solid black
+  &.spd
+    border-top: $top-border solid red
+  &.piraten
+    border-top: $top-border solid rgb(243,143,49)
+  &.fdp
+    border-top: $top-border solid #FBEE31
 
 .minimap
   position: fixed
   height: 100%
   width: $minimap-width
 
-#container
+#container, #wrapper
   height: 100%
   width: 100%
-
-.sub-container
-  height: 100%
-  width: 100%/$num-manifestos
-  float: left
-  overflow-y: scroll
-  overflow-x: hidden
-  padding: 0 0 0 1%
-  ul
-    padding-left: 1.5em
-  ul, p, h1, h2, h3, h4
-    width: 90%
-    margin-left: auto
-    margin-right: auto
 
 .doc
   cursor: pointer
   padding: 1px 0 // prevent white borders between docs
-
-#gruene
-  border-top: $top-border solid green
-#cdu
-  border-top: $top-border solid black
-#spd
-  border-top: $top-border solid red
-#piraten
-  border-top: $top-border solid rgb(243,143,49)
 
 .minimap
   position: fixed
@@ -224,22 +185,89 @@ $transition-time: .2s
     position: fixed
     pointer-events: none
 
-#spd-minimap
-  left: 0
-  & .scroll-indicator
-    left: 0
-#cdu-minimap
-  left: 100%/$num-manifestos
-  & .scroll-indicator
-    left: 100%/$num-manifestos
-#gruene-minimap
-  left: 100%/$num-manifestos*2
-  & .scroll-indicator
-    left: 100%/$num-manifestos*2
-#piraten-minimap
-  left: 100%/$num-manifestos*3
-  & .scroll-indicator
-    left: 100%/$num-manifestos*3
+#container
+
+  .sub-container
+    height: 100%
+    float: left
+    overflow-y: scroll
+    overflow-x: hidden
+    padding: 0 0 0 1%
+    ul
+      padding-left: 1.5em
+    ul, p, h1, h2, h3, h4
+      width: 90%
+      margin-left: auto
+      margin-right: auto
+
+  &.three
+    $num-manifestos: 3
+
+    .sub-container
+      width: 100%/$num-manifestos
+
+    .minimap.one
+      left: 0
+      & .scroll-indicator
+        left: 0
+    .minimap.two
+      left: 100%/$num-manifestos
+      & .scroll-indicator
+        left: 100%/$num-manifestos
+    .minimap.three
+      left: 100%/$num-manifestos*2
+      & .scroll-indicator
+        left: 100%/$num-manifestos*2
+
+  &.four
+    $num-manifestos: 4
+
+    .sub-container
+      width: 100%/$num-manifestos
+
+    .minimap.one
+      left: 0
+      & .scroll-indicator
+        left: 0
+    .minimap.two
+      left: 100%/$num-manifestos
+      & .scroll-indicator
+        left: 100%/$num-manifestos
+    .minimap.three
+      left: 100%/$num-manifestos*2
+      & .scroll-indicator
+        left: 100%/$num-manifestos*2
+    .minimap.four
+      left: 100%/$num-manifestos*3
+      & .scroll-indicator
+        left: 100%/$num-manifestos*3
+
+  &.five
+    $num-manifestos: 5
+
+    .sub-container
+      width: 100%/$num-manifestos
+
+    .minimap.one
+      left: 0
+      & .scroll-indicator
+        left: 0
+    .minimap.two
+      left: 100%/$num-manifestos
+      & .scroll-indicator
+        left: 100%/$num-manifestos
+    .minimap.three
+      left: 100%/$num-manifestos*2
+      & .scroll-indicator
+        left: 100%/$num-manifestos*2
+    .minimap.four
+      left: 100%/$num-manifestos*3
+      & .scroll-indicator
+        left: 100%/$num-manifestos*3
+    .minimap.five
+      left: 100%/$num-manifestos*4
+      & .scroll-indicator
+        left: 100%/$num-manifestos*4
 
 .outlier
   background-color: rgba($c-blue, .15)

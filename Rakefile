@@ -14,7 +14,7 @@ task :default do
 
   # load files from documents/*.md
   puts 'Reading markdown documents...'
-  documents_paths = Dir.glob('documents/*.md')
+  documents_paths = Dir.glob('documents/*.md').sort
   documents = {}
   documents_paths.each_with_index do |path, document_index|
     text = File.read(path)

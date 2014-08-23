@@ -1,9 +1,10 @@
+- numbers = %w[zero one two three four five six]
 - dist = data.distances
 - estimator = Quantile::Estimator.new
 - dist.each { |_,v| v.each { |_,v| estimator.observe(v) } }
 - agendas = data.documents
 - all_docs = agendas.map(&:last).reduce(:+)
-- min = estimator.query(0.8)
+- min = estimator.query(0.95)
 - max = estimator.query(1)
 - outlier = estimator.query(0.4)
 - # map the interval [min, max] to clamped [1, 0] interval and then quantize to ten distance levels
@@ -66,60 +67,20 @@
 
 #shade
 
-#container
-  #spd-minimap.minimap
-    .scroll-indicator
-    - agendas.SPD.each do |p|
-      - classes = score_classes_fn[p]
-      - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.SPD.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
-  #spd.sub-container
-    .wrapper
-      %h1.party-name SPD
-      - agendas.SPD.each do |p|
-        - classes = score_classes_fn[p]
-        - classes << 'outlier' if is_outlier[p]
-        .doc{id: "doc-#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-          = GitHub::Markdown.render p.text
-  #cdu-minimap.minimap
-    .scroll-indicator
-    - agendas.CDU.each do |p|
-      - classes = score_classes_fn[p]
-      - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.CDU.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
-  #cdu.sub-container
-    .wrapper
-      %h1.party-name CDU
-      - agendas.CDU.each do |p|
-        - classes = score_classes_fn[p]
-        - classes << 'outlier' if is_outlier[p]
-        .doc{id: "doc-#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-          = GitHub::Markdown.render p.text
-  #gruene-minimap.minimap
-    .scroll-indicator
-    - agendas["Grüne"].each do |p|
-      - classes = score_classes_fn[p]
-      - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas["Grüne"].map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
-  #gruene.sub-container
-    .wrapper
-      %h1.party-name Grüne
-      - agendas["Grüne"].each do |p|
-        - classes = score_classes_fn[p]
-        - classes << 'outlier' if is_outlier[p]
-        .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-          = GitHub::Markdown.render p.text
-  #piraten-minimap.minimap
-    .scroll-indicator
-    - agendas.Piraten.each do |p|
-      - classes = score_classes_fn[p]
-      - classes << 'outlier' if is_outlier[p]
-      %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/agendas.Piraten.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
-  #piraten.sub-container
-    .wrapper
-      %h1.party-name Piraten
-      - agendas.Piraten.each do |p|
-        - classes = score_classes_fn[p]
-        - classes << 'outlier' if is_outlier[p]
-        .doc{id: "doc-#{p.id.gsub('.','')}", class: ["dist-#{p.id.gsub('.','')}-0"] + classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-          = GitHub::Markdown.render p.text
+#wrapper
+  #container{class: numbers[agendas.keys.size]}
+    - agendas.each_with_index do |(title, paragraphs), i|
+      .minimap{class: numbers[i+1]}
+        .scroll-indicator
+        - paragraphs.each do |p|
+          - classes = score_classes_fn[p]
+          - classes << 'outlier' if is_outlier[p]
+          %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
+      .sub-container{class: title.downcase}
+        .wrapper
+          %h1.party-name= title
+          - paragraphs.each do |p|
+            - classes = score_classes_fn[p]
+            - classes << 'outlier' if is_outlier[p]
+            .doc{id: "doc-#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
+              = GitHub::Markdown.render p.text

@@ -3,11 +3,11 @@
 #= require_self
 
 $(document).on 'click', '[data-click]', ->
-  $container = $('#container')
-  if $container.hasClass($(@).data('click'))
-    $container.removeClass()
+  $wrapper = $('#wrapper')
+  if $wrapper.hasClass($(@).data('click'))
+    $wrapper.removeClass()
   else
-    $container.removeClass().addClass($(@).data('click')).addClass('selected')
+    $wrapper.removeClass().addClass($(@).data('click')).addClass('selected')
 
 $ ->
   # scrolling indicators
