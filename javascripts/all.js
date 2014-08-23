@@ -9449,12 +9449,12 @@ return jQuery;
 })(jQuery);
 (function() {
   $(document).on('click', '[data-click]', function() {
-    var $container;
-    $container = $('#container');
-    if ($container.hasClass($(this).data('click'))) {
-      return $container.removeClass();
+    var $wrapper;
+    $wrapper = $('#wrapper');
+    if ($wrapper.hasClass($(this).data('click'))) {
+      return $wrapper.removeClass();
     } else {
-      return $container.removeClass().addClass($(this).data('click')).addClass('selected');
+      return $wrapper.removeClass().addClass($(this).data('click')).addClass('selected');
     }
   });
 
