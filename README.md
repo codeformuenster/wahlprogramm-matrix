@@ -4,28 +4,26 @@ an experiment by Daniel Kirsch, Martin Honermeyer, Tobias Bradtke, Yannic Schenc
 
 ## Install
 
-You need ruby and R installed.
+You need ruby installed and then
 
     $ bundle install
-   
+
 ## Development
 
-    $ middleman server
-    
+    $ bundle exec middleman
+
 ## Deployment (on gh-pages)
 
-    $ middleman build && middleman deploy
+    $ bundle exec middleman build
+    $ bundle exec middleman deploy
 
 ## Data
 
-Data is generated from https://github.com/codeformuenster/wahlprogramme2014
+Put markdown files into the `documents` folder and run
 
-See `*.md` in `agendas/`
+    $ rake
 
-	$ rake split
-	$ rake agendas.json
-	$ rake distances.json
-	$ cp agendas/*.json data/
+to generate `data/documents.json` (all the paragraph data), `data/important.json` (significant words per paragraph), and `data/distances.json` (the paragraph distances).
 
 ## License
 
