@@ -1,6 +1,10 @@
 # Wahlprogramm-Matrix
 
-an experiment by Daniel Kirsch, Martin Honermeyer, Tobias Bradtke, Yannic Schencking for Code for Münster on the Kommunalwahl 2014
+Show similar passages in election manifestos of different parties side by side.
+
+An experiment by Daniel Kirsch, Martin Honermeyer, Tobias Bradtke, Yannic Schencking for Code for Münster on the Kommunalwahl 2014
+
+![screenshot](https://cloud.githubusercontent.com/assets/828496/6564261/7e03f16a-c6a7-11e4-97f9-f972e60f53cc.png)
 
 ## Install
 
