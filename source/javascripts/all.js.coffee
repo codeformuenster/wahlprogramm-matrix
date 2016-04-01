@@ -7,15 +7,28 @@ scrollToParagraph = (elem) ->
     scrollTop: $(elem).position().top
     }, 500)
 
-$(document).on 'click', '[data-click]', ->
+parseHash = ->
+  return unless window.location.hash
+  elements = window.location.hash[1..].split('+').map (e) -> "##{e}"
+  elements.forEach scrollToParagraph
+  if elements.length
+    activateParagraph(elements[0])
+
+activateParagraph = (p) ->
   $wrapper = $('#wrapper')
-  if $wrapper.hasClass($(@).data('click'))
+  if $wrapper.hasClass($(p).data('click'))
     $wrapper.removeClass()
   else
-    $wrapper.removeClass().addClass($(@).data('click')).addClass('selected')
-  $(@).data('closest').forEach scrollToParagraph
-  window.location.hash = "#" + [$(@).attr('id')].concat($(@).data('closest').map((id) -> id.substr(1))).join('+')
-  
+    $wrapper.removeClass().addClass($(p).data('click')).addClass('selected')
+
+scrollToClosest = (p) ->
+  $(p).data('closest').forEach scrollToParagraph
+  history.pushState({}, '', "/#" + [$(p).attr('id')].concat($(p).data('closest').map((id) -> id.substr(1))).join('+'))
+
+$(document).on 'click', '[data-click]', ->
+  activateParagraph(@)
+  scrollToClosest(@)
+
 $ ->
   # scrolling indicators
   $('.scroll-container').on 'scroll', ->
@@ -26,7 +39,7 @@ $ ->
     scrollIndicator.css(top: "#{scrollPercentage - scrollPercentage*barHeightPercentage/100}%", height: "#{barHeightPercentage}%", "min-height": "10px")
   $('.scroll-container').trigger('scroll')
   # hide scrollbars
-  $('.scroll-container').css("margin-right": -> @clientWidth - @offsetWidth - 1)
+  $('.scroll-container').css("margin-right", -> @clientWidth - @offsetWidth - 1)
 
   # fix minimap heights
   $('.doc').each ->
@@ -41,14 +54,16 @@ $ ->
   $('a.jump-to-paragraph').click((e) ->
     e.preventDefault()
     scrollToParagraph($(@).data('target'))
-    window.location.hash = $(@).data('target')
+    history.pushState({}, '', '/'+$(@).data('target'))
     # TODO scroll other parties max dist
   )
 
   $(window).on('hashchange', (e) ->
-    elements = window.location.hash[1..].split('+').map (e) -> "##{e}"
-    elements.forEach scrollToParagraph
+    console.log "onhashchange"
+    parseHash()
+    e.preventDefault()
     )
+  parseHash()
 
 # scrollcontainer top
 $ ->
