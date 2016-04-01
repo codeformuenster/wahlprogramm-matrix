@@ -1,4 +1,4 @@
-- numbers = %w[zero one two three four five six]
+- numbers = %w[zero one two three four five six seven]
 - dist = data.distances
 - estimator = Quantile::Estimator.new
 - dist.each { |_,v| v.each { |_,v| estimator.observe(v) } }
@@ -10,6 +10,8 @@
 - # map the interval [min, max] to clamped [1, 0] interval and then quantize to ten distance levels
 - quantize = lambda { |d| ([[(max-d)/(max-min), 0].max, 1].min*10).round }
 - is_outlier = lambda { |doc| (data.distances[doc.id][:avg] || 1) < outlier }
+- # closest = { "d1p0": ["d1p2", "d2p34", ...] }
+- closest = data.closest
 - score_classes_fn = lambda { |p| all_docs.map { |doc| [doc, dist[p.id][doc.id]] }.select { |(doc, d)| d.is_a?(Numeric) && d > min }.map { |(doc, d)| [doc, quantize[d]] }.map { |(doc, d)| "dist-#{doc.id.gsub('.','')}-#{d}" } }
 - sass_doc_list = all_docs.map(&:id).map { |id| id.gsub('.','') }.map(&:inspect).join(', ')
 
@@ -75,12 +77,15 @@
         - paragraphs.each do |p|
           - classes = score_classes_fn[p]
           - classes << 'outlier' if is_outlier[p]
-          %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
+          - classes << 'jump-to-paragraph'
+          %a{href: "##{p.id.gsub('.','')}", "data-target" => "##{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
       .sub-container{class: title.downcase}
-        .wrapper
-          %h1.party-name= title
-          - paragraphs.each do |p|
-            - classes = score_classes_fn[p]
-            - classes << 'outlier' if is_outlier[p]
-            .doc{id: "doc-#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-              = GitHub::Markdown.render p.text
+        .scroll-container
+          .wrapper
+            %h1.party-name= title
+            - paragraphs.each do |p|
+              - classes = score_classes_fn[p]
+              - classes << 'outlier' if is_outlier[p]
+              - closest_to_paragraph = closest[p.id].select {|h| h.dist > min }.map {|h| "##{h.doc }" } - ["##{p.id}"]
+              .doc{id: "#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected", closest: closest_to_paragraph}}
+                = GitHub::Markdown.render p.text

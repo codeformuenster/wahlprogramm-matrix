@@ -2,7 +2,7 @@
 @import tipsy
 
 *, *::before, *::after
-  +box-sizing(border-box)
+  box-sizing: border-box
 
 $c-blue: #35A2DF
 $o-red: #CE5B50
@@ -77,7 +77,7 @@ $transition-time: .2s
   z-index: 100
   background: white
   position: fixed
-  +box-shadow(-1px 1px 10px rgba(0,0,0,.5))
+  box-shadow: -1px 1px 10px rgba(0,0,0,.5)
   +helpBall
   opacity: .99
   #questionmark
@@ -153,6 +153,12 @@ $transition-time: .2s
     border-top: $top-border solid rgb(243,143,49)
   &.fdp
     border-top: $top-border solid #FBEE31
+  &.afd
+    border-top: $top-border solid #009EE0
+  &.npd
+    border-top: $top-border solid brown
+  &.linke
+    border-top: $top-border solid violet
 
 .minimap
   position: fixed
@@ -190,9 +196,14 @@ $transition-time: .2s
   .sub-container
     height: 100%
     float: left
-    overflow-y: scroll
-    overflow-x: hidden
+    overflow: hidden
     padding: 0 0 0 1%
+    .scroll-container
+      height: 100%
+      overflow-y: scroll
+      overflow-x: hidden
+      .wrapper
+        position: relative
     ul
       padding-left: 1.5em
     ul, p, h1, h2, h3, h4
@@ -268,6 +279,72 @@ $transition-time: .2s
       left: 100%/$num-manifestos*4
       & .scroll-indicator
         left: 100%/$num-manifestos*4
+
+  &.six
+    $num-manifestos: 6
+
+    .sub-container
+      width: 100%/$num-manifestos
+
+    .minimap.one
+      left: 0
+      & .scroll-indicator
+        left: 0
+    .minimap.two
+      left: 100%/$num-manifestos
+      & .scroll-indicator
+        left: 100%/$num-manifestos
+    .minimap.three
+      left: 100%/$num-manifestos*2
+      & .scroll-indicator
+        left: 100%/$num-manifestos*2
+    .minimap.four
+      left: 100%/$num-manifestos*3
+      & .scroll-indicator
+        left: 100%/$num-manifestos*3
+    .minimap.five
+      left: 100%/$num-manifestos*4
+      & .scroll-indicator
+        left: 100%/$num-manifestos*4
+    .minimap.six
+      left: 100%/$num-manifestos*5
+      & .scroll-indicator
+        left: 100%/$num-manifestos*5
+
+  &.seven
+    $num-manifestos: 7
+
+    .sub-container
+      width: 100%/$num-manifestos
+
+    .minimap.one
+      left: 0
+      & .scroll-indicator
+        left: 0
+    .minimap.two
+      left: 100%/$num-manifestos
+      & .scroll-indicator
+        left: 100%/$num-manifestos
+    .minimap.three
+      left: 100%/$num-manifestos*2
+      & .scroll-indicator
+        left: 100%/$num-manifestos*2
+    .minimap.four
+      left: 100%/$num-manifestos*3
+      & .scroll-indicator
+        left: 100%/$num-manifestos*3
+    .minimap.five
+      left: 100%/$num-manifestos*4
+      & .scroll-indicator
+        left: 100%/$num-manifestos*4
+    .minimap.six
+      left: 100%/$num-manifestos*5
+      & .scroll-indicator
+        left: 100%/$num-manifestos*5
+    .minimap.seven
+      left: 100%/$num-manifestos*6
+      & .scroll-indicator
+        left: 100%/$num-manifestos*6
 
 .outlier
   background-color: rgba($c-blue, .15)
