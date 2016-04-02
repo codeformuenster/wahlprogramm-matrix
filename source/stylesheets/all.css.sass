@@ -1,4 +1,5 @@
 @import bourbon
+@import neat
 @import tipsy
 
 *, *::before, *::after
@@ -15,6 +16,8 @@ $light-blue: lighten($c-blue, 40%)
 $link-color: $o-red
 $visited-color: darken($link-color, 10%)
 
+$scroll-container-background-color: #FFFEFA
+
 a:link
   text-decoration: none
   color: $link-color
@@ -23,11 +26,6 @@ a:hover
 a:visited
   color: $visited-color
 
-::-webkit-scrollbar
-  // width: 0px
-
-$body-width: 900px
-$minimap-width: 1%
 $top-border: 10px
 
 html, body
@@ -144,26 +142,35 @@ $transition-time: .2s
 
 .sub-container
   &.grüne
-    border-top: $top-border solid green
+    .sub-container-title-bar
+      background: green
+      color: white
   &.cdu
-    border-top: $top-border solid black
+    .sub-container-title-bar
+      background: black
+      color: white
   &.spd
-    border-top: $top-border solid red
+    .sub-container-title-bar
+      background: red
+      color: white
   &.piraten
-    border-top: $top-border solid rgb(243,143,49)
+    .sub-container-title-bar
+      background: rgb(243,143,49)
   &.fdp
-    border-top: $top-border solid #FBEE31
+    .sub-container-title-bar
+      background: #FBEE31
   &.afd
-    border-top: $top-border solid #009EE0
+    .sub-container-title-bar
+      background: #009EE0
+      color: white
   &.npd
-    border-top: $top-border solid brown
+    .sub-container-title-bar
+      background: brown
+      color: white
   &.linke
-    border-top: $top-border solid violet
-
-.minimap
-  position: fixed
-  height: 100%
-  width: $minimap-width
+    .sub-container-title-bar
+      background: violet
+      color: white
 
 #container, #wrapper
   height: 100%
@@ -173,31 +180,43 @@ $transition-time: .2s
   cursor: pointer
   padding: 1px 0 // prevent white borders between docs
 
-.minimap
-  position: fixed
-  height: 100%
-  width: $minimap-width
-  background: lighten(yellow, 40%)
-  margin-top: $top-border
-  a
-    display: block
-    &:hover
-      background: yellow
-    z-index: 2
-  .scroll-indicator
-    width: 1%
-    margin-top: $top-border
-    background: rgba(0,0,0,.6)
-    position: fixed
-    pointer-events: none
+//$gutter: 1% !global
+$grid-columns: 13 !global
 
 #container
+  +outer-container(1200px)
 
   .sub-container
-    height: 100%
-    float: left
+    +span-columns(3)
+    &:nth-child(3n+1)
+      +omega
+    position: relative
+    height: 50%
+    padding-bottom: 12px
+    &:first-child
+      +span-columns(4)
+      height: 100%
     overflow: hidden
-    padding: 0 0 0 1%
+
+
+    .sub-container-title-bar
+      position: absolute
+      top: 0
+      height: 10px
+      transition: all 0.5s
+      width: 95%
+      padding-left: 5%
+      z-index: 999
+      h1
+        transition: all 0.5s
+        opacity: 0
+        font-size: .9em
+        margin: 0
+      &.active
+        height: 20px
+        h1
+          opacity: 1
+
     .scroll-container
       height: 100%
       overflow-y: scroll
@@ -206,6 +225,8 @@ $transition-time: .2s
         width: 0 !important
       .wrapper
         position: relative
+      background: $scroll-container-background-color
+
     ul
       padding-left: 1.5em
     ul, p, h1, h2, h3, h4
@@ -213,140 +234,34 @@ $transition-time: .2s
       margin-left: auto
       margin-right: auto
 
+    .minimap
+      //position: absolute
+      position: relative
+      float: right
+      height: 100%
+      width: 5%
+      background: lighten(yellow, 40%)
+      a
+        display: block
+        &:hover
+          background: yellow
+        z-index: 2
+      .scroll-indicator
+        width: 110%
+        background: rgba(0,0,0,.6)
+        position: absolute
+        pointer-events: none
+
   &.three
     $num-manifestos: 3
-
-    .sub-container
-      width: 100%/$num-manifestos
-
-    .minimap.one
-      left: 0
-      & .scroll-indicator
-        left: 0
-    .minimap.two
-      left: 100%/$num-manifestos
-      & .scroll-indicator
-        left: 100%/$num-manifestos
-    .minimap.three
-      left: 100%/$num-manifestos*2
-      & .scroll-indicator
-        left: 100%/$num-manifestos*2
-
   &.four
     $num-manifestos: 4
-
-    .sub-container
-      width: 100%/$num-manifestos
-
-    .minimap.one
-      left: 0
-      & .scroll-indicator
-        left: 0
-    .minimap.two
-      left: 100%/$num-manifestos
-      & .scroll-indicator
-        left: 100%/$num-manifestos
-    .minimap.three
-      left: 100%/$num-manifestos*2
-      & .scroll-indicator
-        left: 100%/$num-manifestos*2
-    .minimap.four
-      left: 100%/$num-manifestos*3
-      & .scroll-indicator
-        left: 100%/$num-manifestos*3
-
   &.five
     $num-manifestos: 5
-
-    .sub-container
-      width: 100%/$num-manifestos
-
-    .minimap.one
-      left: 0
-      & .scroll-indicator
-        left: 0
-    .minimap.two
-      left: 100%/$num-manifestos
-      & .scroll-indicator
-        left: 100%/$num-manifestos
-    .minimap.three
-      left: 100%/$num-manifestos*2
-      & .scroll-indicator
-        left: 100%/$num-manifestos*2
-    .minimap.four
-      left: 100%/$num-manifestos*3
-      & .scroll-indicator
-        left: 100%/$num-manifestos*3
-    .minimap.five
-      left: 100%/$num-manifestos*4
-      & .scroll-indicator
-        left: 100%/$num-manifestos*4
-
   &.six
     $num-manifestos: 6
-
-    .sub-container
-      width: 100%/$num-manifestos
-
-    .minimap.one
-      left: 0
-      & .scroll-indicator
-        left: 0
-    .minimap.two
-      left: 100%/$num-manifestos
-      & .scroll-indicator
-        left: 100%/$num-manifestos
-    .minimap.three
-      left: 100%/$num-manifestos*2
-      & .scroll-indicator
-        left: 100%/$num-manifestos*2
-    .minimap.four
-      left: 100%/$num-manifestos*3
-      & .scroll-indicator
-        left: 100%/$num-manifestos*3
-    .minimap.five
-      left: 100%/$num-manifestos*4
-      & .scroll-indicator
-        left: 100%/$num-manifestos*4
-    .minimap.six
-      left: 100%/$num-manifestos*5
-      & .scroll-indicator
-        left: 100%/$num-manifestos*5
-
   &.seven
     $num-manifestos: 7
-
-    .sub-container
-      width: 100%/$num-manifestos
-
-    .minimap.one
-      left: 0
-      & .scroll-indicator
-        left: 0
-    .minimap.two
-      left: 100%/$num-manifestos
-      & .scroll-indicator
-        left: 100%/$num-manifestos
-    .minimap.three
-      left: 100%/$num-manifestos*2
-      & .scroll-indicator
-        left: 100%/$num-manifestos*2
-    .minimap.four
-      left: 100%/$num-manifestos*3
-      & .scroll-indicator
-        left: 100%/$num-manifestos*3
-    .minimap.five
-      left: 100%/$num-manifestos*4
-      & .scroll-indicator
-        left: 100%/$num-manifestos*4
-    .minimap.six
-      left: 100%/$num-manifestos*5
-      & .scroll-indicator
-        left: 100%/$num-manifestos*5
-    .minimap.seven
-      left: 100%/$num-manifestos*6
-      & .scroll-indicator
-        left: 100%/$num-manifestos*6
 
 .outlier
   background-color: rgba($c-blue, .15)
@@ -366,9 +281,9 @@ $transition-time: .2s
 
 body
   font-family: "Open Sans", sans-serif
-  font-size: 100%
+  font-size: 90%
   @media (max-width: 900px)
-    font-size: 80%
+    font-size: 75%
 
 h1
   font-size: 1.5em

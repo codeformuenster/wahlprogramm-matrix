@@ -5,6 +5,7 @@ source 'http://rubygems.org'
 gem "middleman", "~> 3.4.1"
 gem "middleman-livereload", "~> 3.4.6"
 gem 'bourbon'
+gem 'neat'
 gem 'middleman-deploy', '~> 1.0'
 gem 'github-markdown'
 gem 'quantile'

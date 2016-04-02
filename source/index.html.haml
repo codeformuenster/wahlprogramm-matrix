@@ -72,14 +72,16 @@
 #wrapper
   #container{class: numbers[agendas.keys.size]}
     - agendas.each_with_index do |(title, paragraphs), i|
-      .minimap{class: numbers[i+1]}
-        .scroll-indicator
-        - paragraphs.each do |p|
-          - classes = score_classes_fn[p]
-          - classes << 'outlier' if is_outlier[p]
-          - classes << 'jump-to-paragraph'
-          %a{href: "##{p.id.gsub('.','')}", "data-target" => "##{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
       .sub-container{class: title.downcase}
+        .minimap{class: numbers[i+1]}
+          .scroll-indicator
+          - paragraphs.each do |p|
+            - classes = score_classes_fn[p]
+            - classes << 'outlier' if is_outlier[p]
+            - classes << 'jump-to-paragraph'
+            %a{href: "##{p.id.gsub('.','')}", "data-target" => "##{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
+        .sub-container-title-bar.party-name
+          %h1= title
         .scroll-container
           .wrapper
             %h1.party-name= title
