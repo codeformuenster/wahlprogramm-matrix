@@ -32,8 +32,10 @@ $(document).on 'click', '[data-click]', ->
 $ ->
   # scrolling indicators
   $('.scroll-container').on 'scroll', ->
+    console.log('scroll')
     $(@).closest('.sub-container').find('.sub-container-title-bar').toggleClass('active', $(@).scrollTop() > 20)
-    scrollIndicator = $(@).closest('.sub-container').find('.scroll-indicator') # FIXME ugly
+    scrollIndicator = $(@).closest('.sub-container').find('.scroll-indicator')
+    return if scrollIndicator.hasClass('dragging')
     contentHeight = $(@).find('.wrapper').height()
     scrollPercentage = $(@).scrollTop()/contentHeight*100
     barHeightPercentage = $(@).height()/contentHeight*100
@@ -41,6 +43,32 @@ $ ->
   $('.scroll-container').trigger('scroll')
   # hide scrollbars
   $('.scroll-container').css("margin-right", -> @clientWidth - @offsetWidth - 1)
+
+  dragImage = document.createElement('img')
+  dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
+  $('.scroll-indicator').on 'dragstart', (e) ->
+    e.originalEvent.dataTransfer.setDragImage(dragImage, 0, 0)
+    $(@).toggleClass('dragging', true)
+
+  $('.scroll-indicator').on 'drag', (e) ->
+    return if e.originalEvent.screenY == 0
+    scrollbarHeight = $(@).closest('.minimap').height()
+    handleTop = $(@).position().top
+    handleHeight = $(@).height()
+    maxTop = scrollbarHeight# - handleHeight
+    minTop = 0
+    relativeY = e.originalEvent.offsetY
+    scrollPercentage = Math.max(0, Math.min(handleTop+relativeY, maxTop))/scrollbarHeight*100
+    $(@).css(top: "#{scrollPercentage}%")
+    scrollcontainer = $(@).closest('.sub-container').find('.scroll-container')
+    contentHeight = $(scrollcontainer).find('.wrapper').height()
+    scrollcontainer.scrollTop(scrollPercentage/100*contentHeight)
+
+  $('.scroll-indicator').on 'dragend', ->
+    $(@).toggleClass('dragging', false)
+
+
 
   # fix minimap heights
   $('.doc').each ->
