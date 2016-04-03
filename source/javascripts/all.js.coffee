@@ -2,6 +2,12 @@
 #= require_tree .
 #= require_self
 
+scrollToTool = () ->
+  return if $('body').scrollTop() == $('#container').position().top
+  $('body').animate({
+    scrollTop: $('#container').position().top
+    }, 500)
+
 scrollToParagraph = (elem) ->
   $(elem).closest('.scroll-container').animate({
     scrollTop: $(elem).position().top
@@ -10,8 +16,9 @@ scrollToParagraph = (elem) ->
 parseHash = ->
   return unless window.location.hash
   elements = window.location.hash[1..].split('+').map (e) -> "##{e}"
-  elements.forEach scrollToParagraph
   if elements.length
+    scrollToTool()
+    elements.forEach scrollToParagraph
     activateParagraph(elements[0])
 
 activateParagraph = (p) ->
@@ -26,6 +33,7 @@ scrollToClosest = (p) ->
   history.pushState({}, '', "/#" + [$(p).attr('id')].concat($(p).data('closest').map((id) -> id.substr(1))).join('+'))
 
 $(document).on 'click', '[data-click]', ->
+  scrollToTool()
   activateParagraph(@)
   scrollToClosest(@)
 
