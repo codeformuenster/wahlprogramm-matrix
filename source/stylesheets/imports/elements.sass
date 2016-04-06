@@ -1,0 +1,19 @@
+.button
+	font-size: $baseline * 0.8
+	font-weight: 300
+	line-height: $line-height-text
+	background-color: $color-background-header
+	border-bottom: solid 1px darken($color-background-header, 15)
+	padding: $baseline * 0.8 $baseline * 1.6
+	color: $color-foreground
+	text-transform: uppercase
+	cursor: pointer
+	transition: background-color 300ms
+	&:hover
+		background-color: darken($color-background-header, 10)
+	&:visited
+		color: $color-foreground
+
+.link-to-tool-container
+	text-align: center
+	padding: $baseline * 2 0

@@ -1,0 +1,61 @@
+
+
+.slider
+	padding: 0 0
+
+.blockquote
+	margin-bottom: 0
+	padding: $baseline
+	padding-bottom: 0
+	@include span-columns(12)
+	&:first-child
+		.quote
+		border-bottom: solid 1px $color-foreground
+	.quote
+		margin: $baseline
+		font-family: 'Georgia'
+		font-weight: 300
+		position: relative
+		&::before
+			content: '“'
+			font-size: 4rem
+			position: absolute
+			left: -2rem
+			top: -1rem
+	.author
+		font-style: italic
+		margin: $baseline * 0.5 $baseline
+		left: 2rem
+		position: relative
+		font-weight: bold
+		// float: right
+		&::before
+			content: '—'
+			position: absolute
+			left: -2rem
+	@include media(900px)
+		// @include span-columns(6)
+
+
+.slick-prev:before, .slick-next:before
+	color: black
+
+.slider-next-container
+	text-align: left
+	margin-left: $baseline * 5
+	padding: $baseline * 2 0
+
+.slick-next, .slick-prev
+	width: 1rem
+	height: auto
+@media (min-width: 800px)
+	.slider
+		padding: 0 $baseline * 3
+	.slick-next, .slick-prev
+		width: 3rem
+
+@media (min-width: 1100px)
+	.slider
+		padding: 0 $baseline * 5
+	.slick-next, .slick-prev
+		width: 4rem
