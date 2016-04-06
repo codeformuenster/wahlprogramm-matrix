@@ -5,8 +5,8 @@ body
 	font-size: 15px
 	font-size: 1.5rem
 	font-weight: 400
-	// @media (max-width: 900px)
-	// 	font-size: 75%
+html
+	font-size: 70%
 
 
 article, #help-content
@@ -14,10 +14,8 @@ article, #help-content
 		// margin: 0
 
 	h1
-		font-size: $font-size-h2
-		line-height: $line-height-h2
-		&.party-name
-			font-size: 2em
+		font-size: $font-size-h2 * 0.5
+		line-height: $line-height-h2 * 0.5
 
 	h2
 		font-weight: 600
@@ -40,12 +38,12 @@ article, #help-content
 		line-height: 1.4
 
 	ol
-		margin: $baseline * 2
+		margin: $baseline
 	li
 		line-height: 1.4
 
 	.statements
-		padding: $baseline * 3 $baseline * 2
+		padding: $baseline * 3 $baseline
 		margin: $baseline * 3 0
 		border-top: solid 1px $color-foreground-soft
 		border-bottom: solid 1px $color-foreground-soft
@@ -70,8 +68,28 @@ article, #help-content
 			margin-right: $baseline * 0.4
 
 @media (min-width: 800px)
+	html
+		font-size: 100%
+	body
+		font-size: 15px
+		font-size: 1.5rem
 	.statements
 		padding: $baseline * 3 $baseline * 5
+	article, #help-content
+		h1
+			font-size: $font-size-h2
+			line-height: $line-height-h2
+		h2
+			font-size: 50px
+			font-size: 5.0rem
+			h3, h4
+				font-size: 26px
+				font-size: 2.6rem
+		p
+			font-size: 15px
+			font-size: 1.5rem
+		ol
+			margin: $baseline * 2
 
 
 

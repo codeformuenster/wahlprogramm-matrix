@@ -4,7 +4,7 @@ $top-border: 10px
 //$gutter: 1% !global
 $grid-columns: 13 !global
 
-#help-container
+
 
 #container
 	+outer-container(1200px)
@@ -51,10 +51,13 @@ $grid-columns: 13 !global
 			h3
 				text-align: left
 
+
 #mobile-warning
+	background-color: $color-background-header
 	display: none
+	padding: $baseline * 3 $baseline * 2
 @media (max-width: 600px)
-	#container, #wrapper
+	#container, #wrapper, #manual-text
 		display: none
 	#mobile-warning
 		display: block
