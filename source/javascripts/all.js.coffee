@@ -32,7 +32,8 @@ scrollToClosest = (p) ->
   $(p).data('closest').forEach scrollToParagraph
   history.pushState({}, '', "/#" + [$(p).attr('id')].concat($(p).data('closest').map((id) -> id.substr(1))).join('+'))
 
-$(document).on 'click', '[data-click]', ->
+$(document).on 'click', '[data-click]', (e) ->
+  e.preventDefault()
   scrollToTool()
   activateParagraph(@)
   scrollToClosest(@)
