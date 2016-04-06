@@ -84,7 +84,11 @@ $ ->
     contentHeight = $(@).closest('.wrapper').height()
     $("[href='##{$(@).attr('id')}']").css(height: "#{$(@).height()/contentHeight*100}%")
 
-  $('.minimap a').tipsy(title: 'data-important', gravity: 'e')
+  if ('ontouchstart' in window)
+    console.log 'touch device'
+  else
+    console.log 'no touch device'
+    $('.minimap a').tipsy(title: 'data-important', gravity: 'e')
 
   # animate jump to paragraph
   $('.scroll-container .wrapper').css(position: 'relative') # set offsetParent
@@ -95,6 +99,23 @@ $ ->
     history.pushState({}, '', '/'+$(@).data('target'))
     # TODO scroll other parties max dist
   )
+
+  $(document).on 'touchmove', '.minimap', (e) ->
+    console.log('move')
+    e.preventDefault()
+    minimap = $(@)
+    handle = minimap.find('.scroll-indicator')
+    scrollbarHeight = minimap.height()
+    handleTop = handle.position().top
+    handleHeight = handle.height()
+    maxTop = scrollbarHeight# - handleHeight
+    minTop = 0
+    absoluteY = e.originalEvent.touches[0].pageY - minimap.offset().top
+    scrollPercentage = Math.max(0, Math.min(absoluteY, maxTop))/scrollbarHeight*100
+    handle.css(top: "#{scrollPercentage}%")
+    scrollcontainer = handle.closest('.sub-container').find('.scroll-container')
+    contentHeight = $(scrollcontainer).find('.wrapper').height()
+    scrollcontainer.scrollTop(scrollPercentage/100*contentHeight)
 
   $(window).on('hashchange', (e) ->
     console.log "onhashchange"
