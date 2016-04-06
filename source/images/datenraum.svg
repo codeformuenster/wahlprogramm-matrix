@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="398px" height="369px" viewBox="0 0 398 369" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>datenraum</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="datenraum">
+            <path d="M0.38,328.2 L397.02,328.2" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M0.38,243.7 L397.02,243.7" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M0.38,159.21 L397.02,159.21" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M0.38,74.71 L397.02,74.71" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M56.12,368.62 L56.12,0.98" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M129.91,368.62 L129.91,0.98" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M203.69,368.62 L203.69,0.98" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M277.48,368.62 L277.48,0.98" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M351.27,368.62 L351.27,0.98" id="Shape" stroke="#FAFAFA" stroke-width="1.07" fill="#000000"></path>
+            <path d="M0.38,285.95 L397.02,285.95" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M0.38,201.45 L397.02,201.45" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M0.38,116.96 L397.02,116.96" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M0.38,32.47 L397.02,32.47" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M19.23,368.62 L19.23,0.98" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M93.02,368.62 L93.02,0.98" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M166.8,368.62 L166.8,0.98" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M240.59,368.62 L240.59,0.98" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M314.37,368.62 L314.37,0.98" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <path d="M388.16,368.62 L388.16,0.98" id="Shape" stroke="#E5E5E5" stroke-width="0.43" fill="#000000"></path>
+            <circle id="Oval-19" stroke-opacity="0.339645607" stroke="#FF0000" stroke-width="2" fill-opacity="0.00863337862" fill="#FF0000" cx="262" cy="232" r="77"></circle>
+            <circle id="Oval-19" stroke-opacity="0.36512115" stroke="#00FF00" stroke-width="2" fill-opacity="0.01" fill="#05FF00" cx="196" cy="79" r="75"></circle>
+            <circle id="Oval" fill-opacity="0.270295516" fill="#FF0000" cx="299" cy="222" r="11"></circle>
+            <circle id="Oval" fill="#009EE0" cx="78.59" cy="333.66" r="7.1125"></circle>
+            <circle id="Oval" fill="#009EE0" cx="164.53" cy="313.58" r="7.1125"></circle>
+            <circle id="Oval" fill="#009EE0" cx="299.1125" cy="222.1125" r="7.1125"></circle>
+            <circle id="Oval" fill="#009EE0" cx="178.96" cy="341.03" r="7.1125"></circle>
+            <circle id="Oval" fill="#009EE0" cx="18.41" cy="351.91" r="7.1125"></circle>
+            <circle id="Oval" fill="#009EE0" cx="30.91" cy="213.96" r="7.1125"></circle>
+            <circle id="Oval" fill="#FBEE31" cx="253.15" cy="58.5" r="7.1125"></circle>
+            <circle id="Oval" fill="#FBEE31" cx="184.22" cy="128.2" r="7.1125"></circle>
+            <circle id="Oval" fill="#FBEE31" cx="137.68" cy="57.17" r="7.1125"></circle>
+            <circle id="Oval" fill="#FBEE31" cx="151.54" cy="122.64" r="7.1125"></circle>
+            <circle id="Oval" fill="#FBEE31" cx="144.5" cy="249.53" r="7.1125"></circle>
+            <circle id="Oval" fill="#FBEE31" cx="196" cy="79" r="11"></circle>
+            <circle id="Oval" fill="#000000" cx="148.54" cy="349.68" r="7.1125"></circle>
+            <circle id="Oval" fill="#000000" cx="262" cy="232" r="11"></circle>
+            <circle id="Oval" fill="#000000" cx="210.54" cy="205.88" r="7.1125"></circle>
+            <circle id="Oval" fill="#000000" cx="272.89" cy="187.4" r="7.1125"></circle>
+            <circle id="Oval" fill="#000000" cx="321.46" cy="246.67" r="7.1125"></circle>
+            <circle id="Oval" fill="#000000" cx="378.99" cy="17.69" r="7.1125"></circle>
+        </g>
+    </g>
+</svg>

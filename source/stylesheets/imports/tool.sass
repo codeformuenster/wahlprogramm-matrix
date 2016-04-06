@@ -1,0 +1,232 @@
+$top-border: 10px
+
+
+//$gutter: 1% !global
+$grid-columns: 13 !global
+
+
+
+#container
+	+outer-container(1200px)
+
+#help-content
+	h1, h2, h3
+		text-align: center
+		+outer-container(900px)
+		img
+			vertical-align: middle
+			height: 3em
+	p
+		// padding: 10px 20px
+	ul
+		text-align: left
+		padding: 10px 20px
+		li
+			margin: 0 0 10px 20px
+
+#manual-text
+	background-color: $color-background-header
+	width: 100%
+	overflow: auto
+	margin-bottom: $baseline * 3
+	padding-bottom: $baseline * 2
+	h3
+		margin-bottom: 0
+	ul
+		margin: 0
+		padding: 0
+		list-style: none
+		+outer-container(1200px)
+		li
+			// overflow: hidden
+			@include span-columns(12)
+			@media (min-width: 800px)
+				@include span-columns(6)
+				height: 210px
+			@media (min-width: 1100px)
+				@include span-columns(3)
+				height: auto
+
+			font-size: $baseline * 0.8
+			h3
+				text-align: left
+
+
+#mobile-warning
+	background-color: $color-background-header
+	display: none
+	padding: $baseline * 3 $baseline * 2
+@media (max-width: 600px)
+	#container, #wrapper, #manual-text
+		display: none
+	#mobile-warning
+		display: block
+
+
+#container, #wrapper
+	height: 92vh
+	width: 100%
+
+.doc
+	cursor: pointer
+	padding: 1px 0 // prevent white borders between docs
+
+.sub-container
+	&.grüne
+		.sub-container-title-bar
+			background: green
+			color: white
+	&.cdu
+		.sub-container-title-bar
+			background: black
+			color: white
+	&.spd
+		.sub-container-title-bar
+			background: red
+			color: white
+	&.piraten
+		.sub-container-title-bar
+			background: rgb(243,143,49)
+	&.fdp
+		.sub-container-title-bar
+			background: #FBEE31
+	&.afd
+		.sub-container-title-bar
+			background: #009EE0
+			color: white
+	&.npd
+		.sub-container-title-bar
+			background: brown
+			color: white
+	&.linke
+		.sub-container-title-bar
+			background: violet
+			color: white
+
+.doc
+	cursor: pointer
+	padding: 1px 0 // prevent white borders between docs
+
+#container
+	.sub-container
+		+span-columns(3)
+		&:nth-child(3n+1)
+			+omega
+		position: relative
+		height: 50%
+		padding-bottom: 12px
+		&:first-child
+			+span-columns(4)
+			height: 100%
+		overflow: hidden
+
+
+		.sub-container-title-bar
+			position: absolute
+			top: 0
+			height: 10px
+			transition: all 0.5s
+			width: 95%
+			padding-left: 5%
+			z-index: 10
+			h1
+				transition: all 0.5s
+				opacity: 0
+				font-size: .9rem
+				margin: 0
+			&.active
+				height: 20px
+				h1
+					opacity: 1
+
+		.scroll-container
+			height: 100%
+			width: 95%
+			overflow-y: scroll
+			overflow-x: hidden
+			-webkit-overflow-scrolling: touch
+			&::-webkit-scrollbar
+				width: 0 !important
+			.wrapper
+				position: relative
+			background: $scroll-container-background-color
+
+		ul
+			padding-left: 1.5em
+		ul, p, h1, h2, h3, h4
+			width: 90%
+			margin-left: auto
+			margin-right: auto
+
+		.minimap
+			//position: absolute
+			position: relative
+			float: right
+			height: 100%
+			width: 5%
+			background: lighten(yellow, 40%)
+			a
+				display: block
+				&:hover
+					background: yellow
+				z-index: 2
+			.scroll-indicator
+				width: 110%
+				background: rgba(0,0,0,.6)
+				position: absolute
+				//pointer-events: none
+
+	&.three
+		$num-manifestos: 3
+	&.four
+		$num-manifestos: 4
+	&.five
+		$num-manifestos: 5
+	&.six
+		$num-manifestos: 6
+	&.seven
+		$num-manifestos: 7
+
+.outlier
+	background-color: rgba($c-blue, .15)
+	.selected &
+		background-color: inherit
+
+.highlight-similar
+	background-color: rgba(red, .25)
+	padding: 0 2px
+
+.highlight-outlier
+	background-color: rgba($c-blue, .25)
+	padding: 0 2px
+
+
+
+.sub-container
+	h1, h2, h3, h4
+		text-align: center
+	p
+		text-align: left
+	h1.party-name
+		font-size: 18px
+		font-size: 1.8rem
+
+	h1
+		font-weight: 600
+		font-size: 12px
+		font-size: 1.2rem
+		letter-spacing: 0px
+		line-height: 1.16
+
+	h2, h3
+		font-weight: 400
+		font-size: 10px
+		font-size: 1rem
+		line-height: 1.3
+		letter-spacing: .08rem
+	p
+		font-weight: 400
+		font-size: 8px
+		font-size: 0.8rem
+		letter-spacing: 1px
+		line-height: 1.4

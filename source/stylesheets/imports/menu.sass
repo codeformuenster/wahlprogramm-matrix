@@ -1,0 +1,63 @@
+.menu-container
+	display: none
+	position: absolute
+	top: 20vh
+	left: 0
+	right: 0
+	height: $baseline * 2
+	z-index: 55
+
+.menu-container-fixed-top
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	background-color: $color-background-header
+	border-bottom: solid 1px $color-foreground-soft
+	.menu
+		border: none
+
+.menu
+	position: absolute
+	top: 0
+	bottom: 0
+	left: 20vw
+	right: 3vw
+	border-bottom: solid 1px $color-foreground-soft
+	font-size: $font-size-text * 0.8
+	padding: $baseline * 0.4 0
+
+
+.menu__left
+	float: left
+	padding: 0 $baseline * 0.4
+
+.menu__right
+	float: right
+
+.menu-button
+	background-color: $color-background-marked
+	border-bottom: solid 1px darken($color-background-marked, 20)
+	padding: $baseline * 0.1 $baseline * 1.6 $baseline * 0.1 $baseline * 0.4
+	color: $color-foreground
+	cursor: pointer
+	transition: background-color 300ms
+	&:hover
+		background-color: darken($color-background-marked, 10)
+	&:visited
+		color: $color-foreground
+	img
+		height: $font-size-text * 0.5
+		margin: 0 $baseline * 0.2
+		padding: 0
+@media (min-width: 800px)
+	.menu-container
+		display: block
+
+@media (min-width: 1100px)
+	.menu
+		right: 16vw
+	.menu-fixed-top
+		padding: inherit 15vw
+	.menu__left
+		margin-right: $baseline * 2

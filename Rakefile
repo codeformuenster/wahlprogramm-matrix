@@ -104,4 +104,20 @@ task :default do
     distances.each { |k,v| v.each { |k,v| f.puts v } }
   end
 
+  puts 'Calculating closest paragraphs'
+  closest = documents.map(&:last).reduce(:+).each_with_object({}) do |fromdoc, h|
+    h[fromdoc[:id]] = documents.map do |title, docs|
+      docs.map do |todoc|
+        {doc: todoc[:id], dist: distances[fromdoc[:id]][todoc[:id]]}
+      end.max_by do |h|
+         h[:dist]
+      end
+    end
+  end
+
+  File.open('./data/closest.json', 'w+') do |f|
+    f.write closest.to_json
+    puts 'writing ./data/closest.json'
+  end
+
 end

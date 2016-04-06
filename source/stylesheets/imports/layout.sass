@@ -1,0 +1,30 @@
+
+html, body
+	height: 100%
+	width: 100%
+	margin: 0
+	padding: 0
+
+
+*, *::before, *::after
+	box-sizing: border-box
+
+
+#article-container
+	+outer-container(900px)
+	padding: $baseline
+
+
+.footer
+	min-height: 31.2vh
+	width: 100%
+	background-color: $color-background-header
+	font-weight: 300
+
+.footer__logo
+	display: block
+	width: 20vw
+	margin-left: auto
+	margin-right: auto
+
+.footer__impressum-link

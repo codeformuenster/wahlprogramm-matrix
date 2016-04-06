@@ -1,4 +1,4 @@
-- numbers = %w[zero one two three four five six]
+- numbers = %w[zero one two three four five six seven]
 - dist = data.distances
 - estimator = Quantile::Estimator.new
 - dist.each { |_,v| v.each { |_,v| estimator.observe(v) } }
@@ -10,77 +10,304 @@
 - # map the interval [min, max] to clamped [1, 0] interval and then quantize to ten distance levels
 - quantize = lambda { |d| ([[(max-d)/(max-min), 0].max, 1].min*10).round }
 - is_outlier = lambda { |doc| (data.distances[doc.id][:avg] || 1) < outlier }
+- # closest = { "d1p0": ["d1p2", "d2p34", ...] }
+- closest = data.closest
 - score_classes_fn = lambda { |p| all_docs.map { |doc| [doc, dist[p.id][doc.id]] }.select { |(doc, d)| d.is_a?(Numeric) && d > min }.map { |(doc, d)| [doc, quantize[d]] }.map { |(doc, d)| "dist-#{doc.id.gsub('.','')}-#{d}" } }
 - sass_doc_list = all_docs.map(&:id).map { |id| id.gsub('.','') }.map(&:inspect).join(', ')
 
+
+
 :sass
-  $docs: #{sass_doc_list}
-  $distLevels: 10
-  @each $doc in $docs
-    .doc-\#{$doc}-selected
-      @for $level from 0 to $distLevels
-        .doc.dist-\#{$doc}-\#{$level}
-          background-color: rgba(255, 0, 0, (1-$level/$distLevels)/2)
-        a.dist-\#{$doc}-\#{$level}
-          background-color: rgba(255, 0, 0, 1-$level/$distLevels)
+	$docs: #{sass_doc_list}
+	$distLevels: 10
+	@each $doc in $docs
+		.doc-\#{$doc}-selected
+			@for $level from 0 to $distLevels
+				.doc.dist-\#{$doc}-\#{$level}
+					background-color: rgba(255, 0, 0, (1-$level/$distLevels)/2)
+				a.dist-\#{$doc}-\#{$level}
+					background-color: rgba(255, 0, 0, 1-$level/$distLevels)
 
-%header#help.expanded
-  #close ✗
-  #questionmark ?
-  #help-content
-    %h1
-      %a{href:'http://codeformuenster.org'}
-        %img{src:'http://codeformuenster.org/img/cfm_logo.png', alt:'Code for Münster'}
-      Wahlprogramm-Matrix
-    %p#description
-      Mit dieser App kannst du die
-      %em Wahlprogramme der Kommunalwahl 2014 in Münster
-      mit etwas technischer Unterstützung lesen.
-    %h2 Wie benutze ich die App?
-    %ul#manual-text
-      %li
-        Klicke auf einen Paragraphen um ihn auszuwählen. Der ausgewählte Paragraph und weitere thematisch ähnliche werden
-        %span.highlight-similar farblich
-        hervorgehoben.
-      %li
-        Die Scroll-Leisten zeigen durch
-        %span.highlight-similar farbliche
-        Hinterlegung an, wo im zugehörigen Wahlprogramm die thematisch ähnlichen Paragraphen zu finden sind. Klicke auf die Leiste um zum Paragraphen zu springen.
-      %li Führe die Maus über die Scroll-Leiste um für die Paragraphen relevante Begriffe zu sehen.
-      %li
-        Außenseiter sind
-        %span.highlight-outlier blau
-        hervorhehoben. Diese Paragraphen haben zu allen anderen Paragraphen einen hohen semantischen Abstand.
 
-    %p#manual-movie
-      = image_tag 'manual.gif'
-    %h2 Wie funktioniert das?
-    %p#tech
-      Die Ähnlichkeit wird rein maschinell ermittelt. Dazu werden die Wörter in den einzelnen Paragraphen miteinander verglichen und so ein semantischer Abstand errechnet. Welche Wörter der Algorithmus dabei als besonders relevant empfindet, kann man sehen, wenn man mit dem Mauszeiger über die Scroll-Leisten schwebt. Dabei kommen oft sinnvolle aber manchmal auch nicht so sinnvolle Ergebnisse heraus. (Für technisch versierte Anwender: Wir verwenden <a href="http://de.wikipedia.org/wiki/Tf-idf-Ma%C3%9F">tf-idf</a>.)
-    %h2 Warum tut ihr sowas?
-    %p#rationale
-      Dies ist als Experiment zu verstehen. Wir wollen herausfinden, wie sich Algorithmen nutzen lassen, um Menschen dabei zu unterstützen politische Prozesse zu verstehen oder allgemeiner, wie sich Daten und Allgorithmen für eine bessere Gesellschaft einsetzen lassen. Neugierig? Schau doch mal im <a href="http://codefor.de/oklabs/">Open Knowledge Lab</a> in deiner Stadt vorbei!
-    #attribution
-      %p Ein Experiment von <a href="http://kirelabs.org">Daniel Kirsch</a>, <a href="https://github.com/djmaze">Martin Honermeyer</a>, <a href="https://github.com/webwurst">Tobias Bradtke</a> und <a href="https://github.com/jahnique">Yannic Schencking</a> für
-      %a{href:'http://codeformuenster.org'}
-        %img{src:'http://codeformuenster.org/img/cfm_logo.png', alt:'Code for Münster'}
+%article
+	.menu-container
+		.menu
+			%a.smooth-scroll.menu__left{:href => "#analyse"} Analyse
+			%a.smooth-scroll.menu__left{:href => "#hypothesen"} Hypothesen
+			%a.smooth-scroll.menu__left{:href => "#project"} Über das Projekt
+			%a.smooth-scroll.menu-button.menu__right{:href => "#wrapper"}
+				%img{:src => 'images/arrow.png'}
+				Zum Vergleich
 
-#shade
+	.rider
+		%h1.rider__main-title Wer ist eigentlich die AfD?
+		%h2.rider__sub-title Ein Denkanstoß auf Basis von Data Science
+		%img{:alt => "idalab", :src => "images/logo.png", :class => "rider__logo"}
+
+	#article-container
+		%p Der erste Entwurf des Parteiprogramms der “Alternative für Deutschland” ist vorgelegt. Wo liegen die programmatischen Unterschiede zu den anderen deutschen Parteien? Ist die AfD wirklich eine “Alternative” für Deutschland?
+		.slider
+			.slide
+				.blockquote
+					.quote Statt den Täterschutz immer weiter ausufern zu lassen, wollen wir den Fokus wieder auf darauf richten, den Opferschutz sachorientiert zu verbessern.
+					.author AfD
+				.blockquote
+					.quote Der Schutz der Opfer von Gewaltverbrechen ist zu gewährleisten. Opferschutz muß vor Täterschutz gehen.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Der Staat ist für den Bürger da, nicht der Bürger für den Staat. Nur ein schlanker Staat kann daher ein guter Staat sein. Erforderlich ist ein vom Staat garantierter Ordnungsrahmen, in dem sich die Bürger frei entfalten können.
+					.author AfD
+				.blockquote
+					.quote Nur in einer freien Gesellschaft ist es möglich, dass sich die Menschen ihren Interessen, Fähigkeiten und Neigungen entsprechend entfalten und sich am Gemeinwesen beteiligen können.
+					.author FDP
+			.slide
+				.blockquote
+					.quote  Wir werden nicht aufgeben, für ein einfacheres und gerechteres Steuersystem einzutreten, das mit niedrigen Steuern vor allem Mittel‐ und Geringverdiener finanziell entlastet.
+					.author AfD
+				.blockquote
+					.quote Aus Gründen der Gerechtigkeit ist die Besteuerung nach der Leistungsfähigkeit auszurichten. Ein einfaches Einkommensteuersystem ist die Voraussetzung für ein gerechtes Steuersystem
+					.author Grüne
+			.slide
+				.blockquote
+					.quote Ohne Zustimmung des Volkes darf das Grundgesetz nicht geändert und kein bedeutsamer völkerrechtlicher Vertrag geschlossen werden. Das Volk muss das Recht haben, auch initiativ über Änderungen der Verfassung selbst zu beschließen. Besonders der Abgabe nationaler Souveränität an die EU und andere internationale Organisationen über die Köpfe der Bürger hinweg ist hierdurch der Riegel vorgeschoben.
+					.author AfD
+				.blockquote
+					.quote Bei nationalen Lebensfragen muß der Einfluß des Souveräns durch Volksentscheide auf allen politischen Ebenen gestärkt werden. Das Selbstbestimmungsrecht des Volkes darf nicht durch Rechtsetzungsakte überstaatlicher Organisationen wie der Europäischen Union, der UNO oder der WTO ausgehöhlt werden.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Die Vereinten Nationen sind für Fragen der Sicherheit und des Friedens in der Welt unverzichtbar. Die AfD setzt sich dafür ein, dass Deutschland als aktives Mitglied der Vereinten Nationen beim Lösen und Bewältigen internationaler Konflikte eine aktive und konstruktive Rolle spielt
+					.author AfD
+				.blockquote
+					.quote Um den Frieden in der Welt zu erreichen, gilt es gemeinsame Interessen, Bündnisse und Organisationen zu stärken. Deshalb treten wir dafür ein, die Vereinten Nationen auszubauen als oberste Instanz einer globalen Rechtsordnung.
+					.author SPD
+			.slide
+				.blockquote
+					.quote Das Verhältnis zu Russland ist für Deutschland, Europa und die Nato von maßgeblicher Bedeutung, denn Sicherheit in und für Europa kann ohne Russlands Einbindung nicht gelingen. Wir setzen uns daher dafür ein, Konflikte in Europa friedlich zu regeln und dabei die jeweiligen Interessen zu berücksichtigen.
+					.author AfD
+				.blockquote
+					.quote Deutschland, Europa und der Westen insgesamt haben ein großes Interesse an guten Beziehungen zu Russland. Wir streben eine strategische Partnerschaft der Europäischen Union mit Russland an, die auf den universellen Werten des Europarates gründet. Dabei sind auch die Interessen der mittel und osteuropäischen Staaten zu berücksichtigen.
+					.author CDU
+			.slide
+				.blockquote
+					.quote Die Landesverteidigung ist eine gesamtstaatliche Aufgabe. Sie betrifft den Kern staatlicher Existenz und unserer freiheitlich‐demokratischen Grundordnung. Daher ist der Auftrag der Bundeswehr Verpflichtung für jeden Staatsbürger
+					.author AfD
+				.blockquote
+					.quote Wehrdienst ist Ehrendienst am deutschen Volk. Daher bejaht die NPD die allgemeine Wehrpflicht. Die Streitkräfte müssen auch ihrer Aufgabe als Schule der Nation gerecht werden. Traditionsgrundlage und Vorbild für die deutsche Armee ist die tapfere Haltung der deutschen Soldaten aller Zeiten.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Wir treten im Einkommensteuerrecht für die gerechte Besteuerung von Familien nach dem Familiensplitting‐System ein.
+					.author AfD
+				.blockquote
+					.quote Wir treten aber dafür ein, das Ehegattensplitting voll zu erhalten und zu einem Familiensplitting zu erweitern, damit die besonderen Belastungen von Familien mit Kindern besser ausgeglichen werden.
+					.author CDU
+			.slide
+				.blockquote
+					.quote Familien sind gegenüber Kinderlosen in dramatischer Weise finanziell benachteiligt. Familienarmut und eine anhaltend niedrige Geburtenrate sind die Folge. Kinder werden in Politik und Medien als karrierehemmender Ballast dargestellt. Es ist Zeit, die Leistung der Eltern finanziell und ideell anzuerkennen.
+					.author AfD
+				.blockquote
+					.quote Kinderlosigkeit darf gegenüber Familien mit Kindern nicht bessergestellt werden, deshalb ist das Ehegattensplitting zu einer Förderung für Familien mit Kindern weiterzuentwickeln. Für ein familien und kinderfreundliches Klima bedarf es der besonderen gesellschaftlichen Würdigung der Leistung kinderreicher Familien.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Die Unabhängigkeit der dritten Gewalt muss durch eine Selbstverwaltung der Justiz ausgebaut werden, wie es in vielen anderen europäischen Ländern bereits üblich ist. Wir unterstützen daher den Modellvorschlag des Deutschen Richterbundes, einen Justizwahlausschuss und einen Justizverwaltungsrat einzurichten.
+					.author AfD
+				.blockquote
+					.quote DIE LINKE setzt sich darum auf Bundes und Landesebene für die konsequente Durchsetzung des Gewaltenteilungsprinzips und Demokratisierung der Justiz ein. Die zu bildenden Justizräte sind partei­politisch unabhängig und ausschließlich der Umsetzung des grundgesetzlichen Justizgewährungsanspruchs verpflichtet. Die Bestellung von Richterinnen und Richtern, Staatsanwältinnen und Staatsanwälten soll ausschließlich durch Richterwahlausschüsse erfolgen.
+					.author LINKE
+			.slide
+				.blockquote
+					.quote Der öffentlich‐rechtliche Rundfunk muss seinen Informations‐ und Bildungsauftrag parteipolitisch neutral und staatsfern erfüllen. Daher sind Programme, Finanzierung, Organisation und die Kontrolle durch Rundfunk‐ und Fernsehräte grundlegend zu reformieren sowie Entscheidungsprozesse transparent zu machen.
+					.author AfD
+				.blockquote
+					.quote Der Konzentration von Medien und damit Meinungsmacht ist ein Riegel vorzuschieben. Es darf keine Meinungsmonopole geben. Der öffentlichrechtliche Rundfunk muß zu parteipolitischer Neutralität verpflichtet werden, um nicht Sprachrohr der herrschenden politischen Kräfte zu sein.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Die AfD fühlt sich dem Humboldtschen Bildungsideal verpflichtet.[...] Deshalb fordert die AfD die Rückkehr zu den bewährten Studienabschlüssen Diplom, Magister und Staatsexamen und den entsprechenden Regularien.
+					.author AfD
+				.blockquote
+					.quote Wir Nationaldemokraten halten am Humboldtschen Ideal einer klassischen Hochschulbildung fest, die in der deutschen Geistestradition wurzelt. Die im Zuge des „BolognaProzesses eingeführten Schritte zur Schaffung eines gleichgeschalteten europäischen Hochschulraums sind rückgängig zu machen.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Weder familienbedingte Erwerbspausen noch Teilzeitarbeit sollten sich negativ auf den beruflichen Status und die weitere berufliche Entwicklung auswirken.
+					.author AfD
+				.blockquote
+					.quote Erziehende Mütter wie Väter brauchen einen flexiblen Arbeitsmarkt und Arbeitszeitmodelle, die ihnen die Vereinbarkeit von Beruf und Familie ermöglichen.
+					.author FDP
+			.slide
+				.blockquote
+					.quote Die Gender‐Ideologie und die damit verbundene Frühsexualisierung, staatliche Ausgaben für pseudowissenschaftliche „Gender‐Studies, Quotenregelungen und eine Verunstaltung der deutschen Sprache sind zu stoppen.
+					.author AfD
+				.blockquote
+					.quote Die NPD bekennt sich zur Unterschiedlichkeit und Gleichwertigkeit von Mann und Frau und lehnt die naturwidrige Gender MainstreamingIdeologie ab.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Die überkommene Politik der großzügigen Asylgewährung im Wissen um massenhaften Missbrauch führt nicht nur zu einer rasanten, unaufhaltsamen Besiedelung Europas, insbesondere Deutschlands, durch Menschen aus anderen Kulturen und Weltteilen.
+					.author AfD
+				.blockquote
+					.quote Das weltweit einzigartige Asylrecht der Bundesrepublik Deutschland hat nicht nur zu einem Mißbrauch in unvorstellbarem Ausmaß geführt, sondern auch zu einer Belastung der Staatsausgaben in Milliardenhöhe.
+					.author NPD
+			.slide
+				.blockquote
+					.quote Um mit Einwanderern in der Zukunft friedlich zusammenleben zu können, ist deren Integration unerlässlich. Nur so lässt sich auch das weitere Vordringen von Gegen‐ und Parallelgesellschaften in unserem Land verhindern.
+					.author AfD
+				.blockquote
+					.quote Integration bedeutet auch, Verantwortung für unser Land zu übernehmen. Ein unverbundenes Nebeneinander und Parallelgesellschaften, in denen unsere Rechtsordnung missachtet wird, lehnen wir ab.
+					.author CDU
+			.slide
+				.blockquote
+					.quote Tiere sind Mitgeschöpfe und keine leblosen Gegenstände. Als fühlende Wesen haben sie ein Recht auf eine artgerechte Haltung im privaten wie kommerziellen Bereich. Dies sehen wir nur bedingt bei einer industriellen Massentierhaltung oder einer Haltung in Zirkussen gewahrt
+					.author AfD
+				.blockquote
+					.quote Tiere sind keine Wegwerfware, sondern Lebewesen mit Empfindungen. Deshalb sind Tierversuche nur bei äußerster Notwendigkeit, für medizinische Zwecke, in begrenzter Zahl zu gestatten. Die industrielle Massentierhaltung ist abzulehnen
+					.author NPD
+			.slide
+			.slide
+				.blockquote
+					.quote  Wir wollen die Attraktivität des ländlichen Raumes mit einem aktiven Gemeindeleben und einem funktionierenden gesellschaftlichen Zusammenhalt erhalten bzw. wiederherstellen. Die Entwicklung des ländlichen Raums muss in Deutschland wieder mehr beachtet werden.
+					.author AfD
+				.blockquote
+					.quote Es ist die überschaubare kommunale und regionale Lebenswelt mit ihrer einzigartigen Geschichte und Kultur, die Heimat, Gemeinschaft und Sicherheit im Wandel bietet.
+					.author SPD
+		%p.slider-next-container
+			%a.slider-next.button
+				Nächstes Zitat
+
+		%p Es gibt also tatsächlich einige Ähnlichkeiten zwischen den Parteiprogrammen. Hypothese: Die AfD hat sich beim Schreiben ihres Parteiprogramms klar von anderen inspirieren lassen, neue politische Ideen finden sich nicht.
+
+		%h3 Lügenpresse! Die Auswahl der ähnlichen Abschnitte ist subjektiv!
+		%p Die dargestellten Auszüge der ähnlichen Abschnitte aus den Parteiprogrammen sind nur ein Auszug und als solcher natürlich immer mit Vorsicht zu genießen. Die Analyse beruht auf dem jeweils aktuell gültigen Parteiprogramm der CDU, SPD, Grünen, FDP, LINKE, NPD und AfD. Da es oft schwierig ist, eine ganze Partei hinter einem Grundsatzprogramm zu vereinigen, sind diese Dokumente teilweise älterer Natur. Das Programm der CDU stammt beispielsweise aus dem Jahr 2007, das der Grünen aus dem Jahr 2002.
+		%p Um die Ähnlichkeit politischer Aussagen aus den Parteiprogrammen zu bestimmen, haben wir eine robuste datengetriebene Methodik entwickelt. So können sämtliche Passagen, die eine inhaltliche Ähnlichkeit aufzeigen, schnell identifiziert werden. Dies gilt für Ähnlichkeiten zwischen allen Parteien. Sie können sich also selbst ein Bild verschaffen und weitere spannende Parallelen entdecken. (großer Bildschirm hilfreich):
+		%p.link-to-tool-container
+			%a.smooth-scroll.link-to-tool{:href => "#wrapper", :class => "button"} Zum Vergleichstool
+
+		%h3#analyse Jetzt mal Klartext: Ist die AfD wirklich so ähnlich zu anderen Parteien?
+		%p Es gibt offensichtlich sehr ähnliche Passagen. Unsere Analyse zeigt, dass sich politische Aussagen nicht eindeutig ihrem parteipolitischen Ursprung zuordnen lassen. Insbesondere bei einer Partei wie der AfD, die eine neue politische Heimat für ehemalige Mitglieder von Parteien aus dem gesamten Spektrum ist, ist es wenig verwunderlich, dass sich diverse Ideen anderer Parteien auch im AfD-Parteiprogramm wiederfinden.
+		%p Um zu schauen, inwiefern sich die AfD tatsächlich unterscheidet, haben wir die Aussagen der jeweiligen Parteiprogramme auf einem Links-Rechts-Spektrum untersucht.
+
+		%h3 Aber wie kann man “linke” und “rechte” Aussagen unterscheiden?
+		%p
+			Für Menschen ist es relativ einfach, bestimmte Aussagen im politischen Spektrum zu verorten - wobei dies bei extremen Parolen einfacher ist, als bei moderaten Aussagen. Für Computer hingegen ist dies intuitiv schwieriger, aber sie können die menschliche Bewertungslogik lernen. Im
+			%a{:href => 'https://manifestoproject.wzb.eu', :target => '_blank'} Manifesto-Projekt#
+			(Volkens, Andrea / Lehmann, Pola / Matthieß, Theres / Merz, Nicolas / Regel, Sven / Werner, Annika (2015): The Manifesto Data Collection. Manifesto Project (MRG/CMP/MARPOR). Version 2015a. Berlin: Wissenschaftszentrum Berlin für Sozialforschung (WZB)) haben Sozialforscher Parteiprogramme, Wahlprogramme und sonstige Dokumente der deutschen Parteien per Hand kodiert. Das heisst, jeder Satz wurde auf dem politischen Spektrum eingeordnet. Basierend auf diesen Daten haben wir einen “Classifier” trainiert, der jeden möglichen Satz automatisch auf dem politischen Spektrum zuordnen kann (Source-Code ist in verschiedenen Repositories, wird später selbstverständlich released). Daraus ergibt sich für jede Partei ein Profil, das sich grafisch darstellen lässt. In den Grafiken wird dargestellt, wo die Masse der Paragraphen nach dieser Metrik politisch verortet ist. Ein größerer Berg auf der linken Seite bedeutet z.B. mehr Paragraphen, die vom Algorithmus politisch links eingeordnet werden.
+		%p.image-center-container
+			%img.image-left-right{:alt => "Alternatives PNG-Bild", :height => "632", :src => "images/left-right-narrow.png", :width => "590"}/
+
+		%p Die analysierten Parteien zeigen jeweils dort eine große Dichte von Sätzen auf, wo sie gemeinhin politisch verortet werden. Die Grünen und DIE LINKE haben in ihrem Parteiprogramm deutlich mehr “linke” Aussagen als “rechte” Aussagen. Dies überrascht nicht. CDU und FDP zeigen hingegen ein U-förmiges Profil auf, d.h beide Parteien haben tendenziell sowohl viele Aussagen, die dem linken Spektrum als auch dem rechten Spektrum zuzuordnen sind. Dabei ist die Dichte der “rechten” Aussagen bei der CDU leicht höher als die Dichte der “linken” Aussagen. Die SPD findet sich etwa dazwischen wieder und hat eine hohe Dichte an “linken” Aussagen, allerdings mehr “rechte” Aussagen als die Grünen oder DIE LINKE.
+		%p Die AfD weist in der Analyse ebenfalls ein U-Profil auf, welches bezüglich der “rechten” Aussagen stärker als die SPD ausgeprägt ist, aber schwächer als CDU oder FDP. Das Parteiprogramm der AfD ähnelt also grundsätzlich dem Profil der klassischen Volksparteien. Das Ganze können wir uns übrigens auch für verschiedene Politik-Felder anschauen und sehen, in welchen Feldern sich bestimmte Parteien stark abgrenzen:
+		%p.image-center-container
+			%img.image-left-right-field{:alt => "Alternatives PNG-Bild", :height => "1006", :src => "images/left-right-field.png", :width => "1105"}/
+
+		%p Das Links-Rechts-Profil des AfD-Parteiprogramms unterscheidet sich nicht stark von den Parteiprogrammen von CDU und SPD. Hat die AfD keine eigenständigen Positionen?
+		%p Wollen wir trotz der Ergebnisse der Analyse unserer Intuition vertrauen, dass die AfD sich maßgeblich von anderen Parteien unterscheidet, würde dies folgende Implikationen haben:
+
+		%h3#hypothesen Hypothese 1: Das Links-Rechts Spektrum ist überholt
+		%p Die Analyse wird künstlich vereinfacht, indem sie lediglich auf die Dimension “links-rechts” reduziert wird. Eine Verortung der AfD-Aussagen auf dem Links-Rechts Spektrum greift zu kurz und kann folglich die Neuartigkeit der AfD als Partei nicht abbilden. Als Sammelbecken und “Minimalkonsens” verschiedener Meinungen wird ein Parteiprogramm zudem nie die Klarheit haben, als dass es wirklich die Ausrichtung einer Partei abbilden kann. Deshalb lässt sich das Profil der AfD hier nicht ablesen.
+
+		%h3 Hypothese 2: Neue Parteien unterscheiden sich zu stark im Sprachgebrauch
+		%p Wenn neue Parteien entstehen, benutzen diese ganz neue, mit ihnen zu assoziierende Schlagwörter und setzen gleichzeitig thematisch neue Schwerpunkte. Eine Einordnung, die sich am Sprachgebrauch anderer (und älterer) Parteiprogramme orientiert, kann also keine präzisen Ergebnisse liefern. Das AfD-Parteiprogramm wird also mit einem Werkzeug untersucht, welches nicht geeignet ist, populistische oder neue Ansätze zu erfassen.
+		%p Ist die AfD also keine wirkliche “Alternative” im Parteienspektrum?
+		%p Anknüpfend an die aufgestellten Hypothesen haben wir eine weitere Analyse durchgeführt. Dazu haben wir die einzelnen Sätze der aktuellen Parteiprogramme in einem Datenraum abgebildet und für jede Aussage untersucht, ob im unmittelbaren Umfeld (ein Indikator für Ähnlichkeit) Aussagen anderer Parteien zu finden sind. Wenn eine AfD-Aussage also lediglich von AfD-Aussagen umgeben ist, ist dies ein Alleinstellungsmerkmal und eine klare Abgrenzung zu anderen Parteien.
+		%p.image-center-container
+			%object.image-datenraum{:data => "images/datenraum.svg", :type => "image/svg+xml"}
+				%img{:alt => "Alternatives PNG-Bild", :height => "193", :src => "images/datenraum.svg", :width => "600"}/
+		%p Für die AfD haben wir unter anderem folgende  Aussagen als Alleinstellungsmerkmale identifiziert:
+
+		.statements
+			%p.statement Die	 AfD	 fordert:	 Schluss	 mit	 „Politischer	 Korrektheit“
+			%p.statement Das	Minarett	lehnt	die	AfD	als	islamisches	Herrschaftssymbol	ebenso	ab	wie	den	Muezzinruf,	 nach	dem	es	außer	dem	islamischen	Allah	keinen	 Gott	gibt.
+			%p.statement Einen	„Flüchtlings‐Soli“	lehnt	die	AfD	vehement	ab
+			%p.statement Die	AfD	tritt	daher	dafür	ein,	das	EEG	ersatzlos	abzuschaffen.
+			%p.statement Daher	 setzt	 sich	 die	 AfD	 dafür	 ein,	 die	 EnEV	 und	 das	 EEWärmeG	 ersatzlos	 zu	 kassieren.
+			%p.statement Daher	setzt sich die AfD dafür ein, das im April 2015 in den Bundestag eingebrachte restriktive „Fracking‐Gesetz“ zurückzuziehen.
+
+		%p Von diesen Aussagen mag man halten, was man möchte. Grundsätzlich existieren aber eigenständige Positionen - und dies ist bei anderen Parteien in unserem Modell nicht der Fall.
+		%p Während Parteien wie DIE LINKE und die FDP noch mit eindeutigen Aussagen erkennbar sind, erkennt der Algorithmus beispielsweise bei der SPD gar keine eindeutige Aussage und bei den Grünen und der CDU nur sehr wenige. Parteien wie CDU, SPD und Grüne lassen sich in ihren Parteiprogrammen so nur schwierig voneinander abgrenzen. Realpolitische Wirklichkeit scheint diese Ergebnisse zu unterstützen: in Baden-Württemberg verhandelt die CDU mit den Grünen, die Große Koalition auf Bundesebene besteht schon drei Jahre.
+		%p Wir haben es also mit drei Phänomenen zu tun:
+
+		%ol
+			%li Einer grundsätzlichen Ähnlichkeit von CDU, SPD und den Grünen
+			%li Das Parteiprogramm der AfD hat viele eigenständige Aussagen.
+			%li Auf einer statischen politischen links-rechts-Skala wirkt die AfD sehr ähnlich zum Profil der etablierten Parteien
+
+		%p Das dritte Phänomen ist ein guter Grund, eine statische Links-Rechts-Einordnung zu kritisieren. Sie erfasst die politische Komplexität nicht vollständig und führt zu undifferenzierten Aussagen.
+		%p Um zu entscheiden, ob es sich bei der “Alternative für Deutschland” wirklich um eine Alternative handelt, wird man abwarten müssen, wie genau das Parteiprogramm aussieht, wenn es Ende April wirklich verabschiedet wird, und wie sich das Parteiprogramm in die Tagespolitik überträgt.
+
+		%h3#project Über das Projekt
+		%p
+			Projektbeteiligte: Moritz Neeb, Daniel Kirsch, Felix Bießmann, Paul von Bünau, Antje Relitz und Niels Reinhard. Wir sind keine Politikwissenschaftler, keine politischen Aktivisten und auch keine Journalisten. Wir beschäftigen uns primär mit Daten und ihrer Verwertbarkeit. Die AfD-Analyse entstand aus einem Feierabend-Hackathon während unserer Arbeit bei idalab. Die Analyse basiert sehr stark auf der Arbeit von Felix Bießmann im Rahmen des
+			%a{:href => 'http://fipi-dev.elasticbeanstalk.com', :target => '_blank'} FIPI-Projekts
+			und knüpft an die Arbeit von Daniel Kirsch bei
+			%a{:href => 'http://codeformuenster.org', :target => '_blank'} “Code for Münster”
+			an.
+		%p Wir erheben keinen Anspruch auf Vollständigkeit und Richtigkeit. Vielmehr wollen wir eine Diskussion anstoßen, wie politische Texte maschinell besser analysiert werden können. Wie können Ähnlichkeiten politischer Texte besser bestimmt werden? Wir freuen uns über Inspiration und Austausch mit anderen politisch interessierten Machine Learning Experten und Data Scientists.
+		%p
+			Gerne berichten wir auch über die Methodik und unsere Erkenntnisse. Ansprechpartner:
+			%a{:href => "mailto:niels.reinhard@idalab.de"} Niels Reinhard
+		-# %img.logo-at-bottom{:src => "images/logo.png"}
+		%hr
+
+
+#help-container
+	#help-content
+		%h2 Wahlprogramme selbst vergleichen
+		%h3
+			Hier kannst du die Parteiprogramme - mit Unterstützung des Algorithmus - selbst vergleichen.
+		#manual-text
+			%h3 Wie benutze ich das Tool?
+			%ul
+				%li
+					%h3 1
+					Klicke auf einen Paragraphen um ihn auszuwählen. Der ausgewählte Paragraph und weitere thematisch ähnliche werden
+					%span.highlight-similar farblich
+					hervorgehoben. Zudem scrollen alle Wahlprogramme automatisch zum thematisch ähnlichsten Paragraphen.
+				%li
+					%h3 2
+					Die Scroll-Leisten zeigen durch
+					%span.highlight-similar farbliche
+					Hinterlegung an, wo im zugehörigen Wahlprogramm weitere thematisch ähnliche Paragraphen zu finden sind. Klicke auf die Leiste um zum Paragraphen zu springen.
+				%li
+					%h3 3
+					Führe die Maus über die Scroll-Leiste um für die Paragraphen relevante Begriffe zu sehen.
+				%li
+					%h3 4
+					Außenseiter sind
+					%span.highlight-outlier blau
+					hervorhehoben. Diese Paragraphen haben zu allen anderen Paragraphen einen hohen semantischen Abstand.
+
+#mobile-warning
+	%h2 Ups, doch nicht!
+	%h3 Das Vergleichstool ist nur für Bildschirme mit einer Mindestbreite von 600px optimiert. Bitte kehren Sie mit Ihrem Laptop oder Tablet zurück.
 
 #wrapper
-  #container{class: numbers[agendas.keys.size]}
-    - agendas.each_with_index do |(title, paragraphs), i|
-      .minimap{class: numbers[i+1]}
-        .scroll-indicator
-        - paragraphs.each do |p|
-          - classes = score_classes_fn[p]
-          - classes << 'outlier' if is_outlier[p]
-          %a{href: "#doc-#{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
-      .sub-container{class: title.downcase}
-        .wrapper
-          %h1.party-name= title
-          - paragraphs.each do |p|
-            - classes = score_classes_fn[p]
-            - classes << 'outlier' if is_outlier[p]
-            .doc{id: "doc-#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected"}}
-              = GitHub::Markdown.render p.text
+	#container{class: numbers[agendas.keys.size]}
+		- agendas.each_with_index do |(title, paragraphs), i|
+			.sub-container{class: title.downcase}
+				.minimap{class: numbers[i+1]}
+					.scroll-indicator(draggable="true")
+					- paragraphs.each do |p|
+						- classes = score_classes_fn[p]
+						- classes << 'outlier' if is_outlier[p]
+						- classes << 'jump-to-paragraph'
+						%a{href: "##{p.id.gsub('.','')}", "data-target" => "##{p.id.gsub('.','')}", style: "height: #{100.0*p.text.length/paragraphs.map(&:text).map(&:length).reduce(:+)}%", class: classes, :"data-important" => data.important[p.id].keys.join(', ')}
+				.sub-container-title-bar.party-name
+					%h1= title
+				.scroll-container
+					.wrapper
+						%h1.party-name= title
+						- paragraphs.each do |p|
+							- classes = score_classes_fn[p]
+							- classes << 'outlier' if is_outlier[p]
+							- closest_to_paragraph = closest[p.id].select {|h| h.dist > min }.map {|h| "##{h.doc }" } - ["##{p.id}"]
+							.doc{id: "#{p.id.gsub('.','')}", class: classes, data: {click: "doc-#{p.id.gsub('.','')}-selected", closest: closest_to_paragraph}}
+								= GitHub::Markdown.render p.text
+
+-# .footer
+-# 	© 2016 ida lab
+-# 	%img{:alt => "idalab", :src => "images/logo.png", :class => "footer__logo"}
+-# 	%a{:href => "", :class => "footer__impressum-link"}
