@@ -45,10 +45,10 @@ article, #help-content
 		line-height: 1.4
 
 	.statements
-		padding: $baseline * 3 0
+		padding: $baseline * 3 $baseline * 2
 		margin: $baseline * 3 0
-		border-top: solid 1px $color-foreground
-		border-bottom: solid 1px $color-foreground
+		border-top: solid 1px $color-foreground-soft
+		border-bottom: solid 1px $color-foreground-soft
 
 	p.statement
 		margin-right: $baseline
@@ -56,6 +56,22 @@ article, #help-content
 		margin-bottom: $baseline * 2
 		font-style: italic
 		text-align: center
+		margin: $baseline
+		font-family: 'Georgia'
+		font-weight: 300
+		position: relative
+		&::before
+			content: '“'
+			font-size: 3rem
+			line-height: 1rem
+			position: relative
+			display: inline
+			top: 0.8rem
+			margin-right: $baseline * 0.4
+
+@media (min-width: 800px)
+	.statements
+		padding: $baseline * 3 $baseline * 5
 
 
 

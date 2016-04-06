@@ -9,7 +9,7 @@ $(document).ready ->
 	return
 
 initializeSmoothScrolling = ->
-	$('a').click ->
+	$('a.smooth-scroll').click ->
 		$('html, body').animate { scrollTop: $($.attr(this, 'href')).offset().top-50 }, 500
 		false
 

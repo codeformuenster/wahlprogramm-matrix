@@ -32,10 +32,10 @@
 %article
 	.menu-container
 		.menu
-			%a.menu__left{:href => "#analyse"} Analyse
-			%a.menu__left{:href => "#hypothesen"} Hypothesen
-			%a.menu__left{:href => "#project"} Über das Projekt
-			%a.menu-button.menu__right{:href => "#wrapper"}
+			%a.smooth-scroll.menu__left{:href => "#analyse"} Analyse
+			%a.smooth-scroll.menu__left{:href => "#hypothesen"} Hypothesen
+			%a.smooth-scroll.menu__left{:href => "#project"} Über das Projekt
+			%a.smooth-scroll.menu-button.menu__right{:href => "#wrapper"}
 				%img{:src => 'images/arrow.png'}
 				Zum Vergleich
 
@@ -184,7 +184,7 @@
 		%p Die dargestellten Auszüge der ähnlichen Abschnitte aus den Parteiprogrammen sind nur ein Auszug und als solcher natürlich immer mit Vorsicht zu genießen. Die Analyse beruht auf dem jeweils aktuell gültigen Parteiprogramm der CDU, SPD, Grünen, FDP, LINKE, NPD und AfD. Da es oft schwierig ist, eine ganze Partei hinter einem Grundsatzprogramm zu vereinigen, sind diese Dokumente teilweise älterer Natur. Das Programm der CDU stammt beispielsweise aus dem Jahr 2007, das der Grünen aus dem Jahr 2002.
 		%p Um die Ähnlichkeit politischer Aussagen aus den Parteiprogrammen zu bestimmen, haben wir eine robuste datengetriebene Methodik entwickelt. So können sämtliche Passagen, die eine inhaltliche Ähnlichkeit aufzeigen, schnell identifiziert werden. Dies gilt für Ähnlichkeiten zwischen allen Parteien. Sie können sich also selbst ein Bild verschaffen und weitere spannende Parallelen entdecken. (großer Bildschirm hilfreich):
 		%p.link-to-tool-container
-			%a.link-to-tool{:href => "#wrapper", :class => "button"} Zum Vergleichstool
+			%a.smooth-scroll.link-to-tool{:href => "#wrapper", :class => "button"} Zum Vergleichstool
 
 		%h3#analyse Jetzt mal Klartext: Ist die AfD wirklich so ähnlich zu anderen Parteien?
 		%p Es gibt offensichtlich sehr ähnliche Passagen. Unsere Analyse zeigt, dass sich politische Aussagen nicht eindeutig ihrem parteipolitischen Ursprung zuordnen lassen. Insbesondere bei einer Partei wie der AfD, die eine neue politische Heimat für ehemalige Mitglieder von Parteien aus dem gesamten Spektrum ist, ist es wenig verwunderlich, dass sich diverse Ideen anderer Parteien auch im AfD-Parteiprogramm wiederfinden.
@@ -195,13 +195,13 @@
 			Für Menschen ist es relativ einfach, bestimmte Aussagen im politischen Spektrum zu verorten - wobei dies bei extremen Parolen einfacher ist, als bei moderaten Aussagen. Für Computer hingegen ist dies intuitiv schwieriger, aber sie können die menschliche Bewertungslogik lernen. Im
 			%a{:href => 'https://manifestoproject.wzb.eu', :target => '_blank'} Manifesto-Projekt#
 			(Volkens, Andrea / Lehmann, Pola / Matthieß, Theres / Merz, Nicolas / Regel, Sven / Werner, Annika (2015): The Manifesto Data Collection. Manifesto Project (MRG/CMP/MARPOR). Version 2015a. Berlin: Wissenschaftszentrum Berlin für Sozialforschung (WZB)) haben Sozialforscher Parteiprogramme, Wahlprogramme und sonstige Dokumente der deutschen Parteien per Hand kodiert. Das heisst, jeder Satz wurde auf dem politischen Spektrum eingeordnet. Basierend auf diesen Daten haben wir einen “Classifier” trainiert, der jeden möglichen Satz automatisch auf dem politischen Spektrum zuordnen kann (Source-Code ist in verschiedenen Repositories, wird später selbstverständlich released). Daraus ergibt sich für jede Partei ein Profil, das sich grafisch darstellen lässt. In den Grafiken wird dargestellt, wo die Masse der Paragraphen nach dieser Metrik politisch verortet ist. Ein größerer Berg auf der linken Seite bedeutet z.B. mehr Paragraphen, die vom Algorithmus politisch links eingeordnet werden.
-		%object.image-left-right{:data => "images/left-right.svg", :type => "image/svg+xml"}
-			%img{:alt => "Alternatives PNG-Bild", :height => "193", :src => "images/left-right.svg", :width => "600"}/
+		%p.image-center-container
+			%img.image-left-right{:alt => "Alternatives PNG-Bild", :height => "632", :src => "images/left-right-narrow.png", :width => "590"}/
 
 		%p Die analysierten Parteien zeigen jeweils dort eine große Dichte von Sätzen auf, wo sie gemeinhin politisch verortet werden. Die Grünen und DIE LINKE haben in ihrem Parteiprogramm deutlich mehr “linke” Aussagen als “rechte” Aussagen. Dies überrascht nicht. CDU und FDP zeigen hingegen ein U-förmiges Profil auf, d.h beide Parteien haben tendenziell sowohl viele Aussagen, die dem linken Spektrum als auch dem rechten Spektrum zuzuordnen sind. Dabei ist die Dichte der “rechten” Aussagen bei der CDU leicht höher als die Dichte der “linken” Aussagen. Die SPD findet sich etwa dazwischen wieder und hat eine hohe Dichte an “linken” Aussagen, allerdings mehr “rechte” Aussagen als die Grünen oder DIE LINKE.
 		%p Die AfD weist in der Analyse ebenfalls ein U-Profil auf, welches bezüglich der “rechten” Aussagen stärker als die SPD ausgeprägt ist, aber schwächer als CDU oder FDP. Das Parteiprogramm der AfD ähnelt also grundsätzlich dem Profil der klassischen Volksparteien. Das Ganze können wir uns übrigens auch für verschiedene Politik-Felder anschauen und sehen, in welchen Feldern sich bestimmte Parteien stark abgrenzen:
-		%object.image-left-right-field{:data => "images/left-right-field.svg", :type => "image/svg+xml"}
-			%img{:alt => "Alternatives PNG-Bild", :height => "193", :src => "images/left-right-field.svg", :width => "600"}/
+		%p.image-center-container
+			%img.image-left-right-field{:alt => "Alternatives PNG-Bild", :height => "1006", :src => "images/left-right-field.png", :width => "1105"}/
 
 		%p Das Links-Rechts-Profil des AfD-Parteiprogramms unterscheidet sich nicht stark von den Parteiprogrammen von CDU und SPD. Hat die AfD keine eigenständigen Positionen?
 		%p Wollen wir trotz der Ergebnisse der Analyse unserer Intuition vertrauen, dass die AfD sich maßgeblich von anderen Parteien unterscheidet, würde dies folgende Implikationen haben:
@@ -213,7 +213,7 @@
 		%p Wenn neue Parteien entstehen, benutzen diese ganz neue, mit ihnen zu assoziierende Schlagwörter und setzen gleichzeitig thematisch neue Schwerpunkte. Eine Einordnung, die sich am Sprachgebrauch anderer (und älterer) Parteiprogramme orientiert, kann also keine präzisen Ergebnisse liefern. Das AfD-Parteiprogramm wird also mit einem Werkzeug untersucht, welches nicht geeignet ist, populistische oder neue Ansätze zu erfassen.
 		%p Ist die AfD also keine wirkliche “Alternative” im Parteienspektrum?
 		%p Anknüpfend an die aufgestellten Hypothesen haben wir eine weitere Analyse durchgeführt. Dazu haben wir die einzelnen Sätze der aktuellen Parteiprogramme in einem Datenraum abgebildet und für jede Aussage untersucht, ob im unmittelbaren Umfeld (ein Indikator für Ähnlichkeit) Aussagen anderer Parteien zu finden sind. Wenn eine AfD-Aussage also lediglich von AfD-Aussagen umgeben ist, ist dies ein Alleinstellungsmerkmal und eine klare Abgrenzung zu anderen Parteien.
-		%p.image-datenraum-container
+		%p.image-center-container
 			%object.image-datenraum{:data => "images/datenraum.svg", :type => "image/svg+xml"}
 				%img{:alt => "Alternatives PNG-Bild", :height => "193", :src => "images/datenraum.svg", :width => "600"}/
 		%p Für die AfD haben wir unter anderem folgende  Aussagen als Alleinstellungsmerkmale identifiziert:
@@ -280,6 +280,9 @@
 					%span.highlight-outlier blau
 					hervorhehoben. Diese Paragraphen haben zu allen anderen Paragraphen einen hohen semantischen Abstand.
 
+#mobile-warning
+	%h2 Der Vergleich wird nicht auf Handys angezeigt
+	%h3 Das Vergleichstool ist nur für Bildschirme mit einer Mindestbreite von 600px optimiert. Bitte kehren Sie mit Ihrem Laptop oder Tablet zurück.
 
 #wrapper
 	#container{class: numbers[agendas.keys.size]}

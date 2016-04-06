@@ -1,4 +1,5 @@
 .menu-container
+	display: none
 	position: absolute
 	top: 20vh
 	left: 0
@@ -7,7 +8,6 @@
 	z-index: 55
 
 .menu-container-fixed-top
-	display: none
 	position: fixed
 	top: 0
 	left: 0
@@ -21,7 +21,7 @@
 	position: absolute
 	top: 0
 	bottom: 0
-	left: 16vw
+	left: 20vw
 	right: 3vw
 	border-bottom: solid 1px $color-foreground-soft
 	font-size: $font-size-text * 0.8
@@ -50,6 +50,9 @@
 		height: $font-size-text * 0.5
 		margin: 0 $baseline * 0.2
 		padding: 0
+@media (min-width: 800px)
+	.menu-container
+		display: block
 
 @media (min-width: 1100px)
 	.menu
@@ -58,5 +61,3 @@
 		padding: inherit 15vw
 	.menu__left
 		margin-right: $baseline * 2
-	.menu-container-fixed-top
-		display: block
