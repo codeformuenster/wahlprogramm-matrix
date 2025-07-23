@@ -2,10 +2,10 @@
 # the following line to use "https"
 source 'http://rubygems.org'
 
-gem "middleman", "~>3.3.2"
-gem "middleman-livereload", "~> 3.1.0"
-gem 'bourbon'
-gem 'middleman-deploy'
+gem "middleman", "~> 3.3.3"
+gem "middleman-livereload", "~> 3.2.1"
+gem 'bourbon', '>= 3.2.0'
+gem 'middleman-deploy', '>= 0.2.4'
 gem 'github-markdown'
 gem 'quantile'
 
